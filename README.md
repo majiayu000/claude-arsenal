@@ -59,44 +59,73 @@ curl -o ./CLAUDE.md \
 
 | Plugin | Description |
 |--------|-------------|
-| `rust-dev` | Rust development toolkit with best practices |
-| `python-dev` | Python development toolkit |
-| `typescript-dev` | TypeScript/JavaScript development toolkit |
-| `devops` | DevOps and CI/CD utilities |
+| [`rust-dev`](./plugins/rust-dev) | Rust development toolkit with best practices |
 
 ### Skills
 
-| Skill | Description |
-|-------|-------------|
-| `code-review` | Comprehensive code review assistant |
-| `security-audit` | Security vulnerability detection |
-| `performance` | Performance optimization guidance |
-| `refactoring` | Code refactoring assistance |
+| Skill | Description | Source |
+|-------|-------------|--------|
+| [`test-driven-development`](./skills/test-driven-development.SKILL.md) | TDD with RED-GREEN-REFACTOR cycle | [obra/superpowers](https://github.com/obra/superpowers) |
+| [`systematic-debugging`](./skills/systematic-debugging.SKILL.md) | 4-phase debugging framework | [obra/superpowers](https://github.com/obra/superpowers) |
+| [`brainstorming`](./skills/brainstorming.SKILL.md) | Socratic design refinement | [obra/superpowers](https://github.com/obra/superpowers) |
+| [`git-commit-smart`](./skills/git-commit-smart.SKILL.md) | Conventional commit message generation | [plugins-plus](https://github.com/jeremylongshore/claude-code-plugins-plus) |
+| [`playwright-automation`](./skills/playwright-automation.SKILL.md) | Browser automation and testing | [lackeyjb/playwright-skill](https://github.com/lackeyjb/playwright-skill) |
+| [`project-health-auditor`](./skills/project-health-auditor.SKILL.md) | Codebase health analysis | [plugins-plus](https://github.com/jeremylongshore/claude-code-plugins-plus) |
 
 ### Commands
 
 | Command | Description |
 |---------|-------------|
-| `/review-pr` | Review a pull request |
-| `/generate-tests` | Generate unit tests |
-| `/explain` | Explain code in detail |
+| *Coming soon* | - |
 
 ### Agents
 
 | Agent | Description |
 |-------|-------------|
-| `architect` | Software architecture design |
-| `debugger` | Debugging specialist |
-| `reviewer` | Code review expert |
+| *Coming soon* | - |
 
 ### CLAUDE.md Templates
 
 | Template | Description |
 |----------|-------------|
-| `rust-project` | Rust/Cargo project configuration |
-| `python-project` | Python project configuration |
-| `typescript-project` | TypeScript project configuration |
-| `monorepo` | Monorepo configuration |
+| [`rust-project`](./claude-md/rust-project.md) | Rust/Cargo project configuration |
+
+## Quick Start
+
+### Install All Skills at Once
+
+```bash
+mkdir -p ~/.claude/skills
+
+# Download all skills
+for skill in test-driven-development systematic-debugging brainstorming git-commit-smart playwright-automation project-health-auditor; do
+  curl -o ~/.claude/skills/${skill}.SKILL.md \
+    https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/skills/${skill}.SKILL.md
+done
+```
+
+### Install Rust Plugin
+
+```bash
+/plugin marketplace add https://github.com/majiayu000/claude-arsenal/plugins/rust-dev
+/plugin install rust-dev
+```
+
+## Documentation
+
+- [Installation Guide](./docs/installation.md)
+- [Creating Plugins](./docs/creating-plugins.md)
+- [Skills & Agents Analysis](./docs/skills-agents-analysis.md)
+
+## Credits
+
+This arsenal includes skills inspired by:
+
+- [anthropics/skills](https://github.com/anthropics/skills) - Official Anthropic skills
+- [obra/superpowers](https://github.com/obra/superpowers) - Battle-tested development skills
+- [claude-code-plugins-plus](https://github.com/jeremylongshore/claude-code-plugins-plus) - Comprehensive plugin hub
+- [lackeyjb/playwright-skill](https://github.com/lackeyjb/playwright-skill) - Browser automation
+- [awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) - Curated skills collection
 
 ## Contributing
 
