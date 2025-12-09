@@ -1,0 +1,10 @@
+# Standalone Skills Directory
+
+Place individual SKILL.md files here.
+
+Naming convention: <skill-name>.SKILL.md
+
+Example:
+- code-review.SKILL.md
+- security-audit.SKILL.md
+- performance.SKILL.md

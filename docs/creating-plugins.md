@@ -1,0 +1,125 @@
+# Creating Plugins Guide
+
+## Plugin Structure
+
+```
+my-plugin/
+├── .claude-plugin/
+│   └── plugin.json      # Required: Plugin manifest
+├── skills/              # Optional: SKILL.md files
+├── commands/            # Optional: Slash commands
+├── agents/              # Optional: Agent definitions
+└── hooks/               # Optional: Hook configurations
+```
+
+## plugin.json Format
+
+```json
+{
+  "name": "my-plugin",
+  "version": "1.0.0",
+  "description": "What this plugin does",
+  "author": {
+    "name": "Your Name",
+    "url": "https://github.com/username"
+  },
+  "repository": "https://github.com/username/repo",
+  "license": "MIT",
+  "keywords": ["keyword1", "keyword2"]
+}
+```
+
+### Required Fields
+
+| Field | Description |
+|-------|-------------|
+| `name` | Unique identifier, kebab-case |
+
+### Optional Fields
+
+| Field | Description |
+|-------|-------------|
+| `version` | Semantic version (e.g., 1.0.0) |
+| `description` | Brief description |
+| `author` | Author info (name, email, url) |
+| `repository` | Source code URL |
+| `license` | License type |
+| `keywords` | Search keywords |
+
+## Creating Skills
+
+Place `*.SKILL.md` files in the `skills/` directory:
+
+```markdown
+---
+name: skill-name
+description: When to use this skill (max 1024 chars)
+allowed-tools: Read, Grep, Glob, Edit
+---
+
+# Skill Title
+
+## Instructions
+
+What Claude should do when this skill is activated...
+
+## Examples
+
+- Example trigger: "Do X"
+- Example trigger: "Help me with Y"
+```
+
+## Creating Commands
+
+Place `*.md` files in the `commands/` directory:
+
+```markdown
+---
+description: What this command does
+---
+
+# Command Name
+
+Instructions for Claude when this command is invoked...
+```
+
+## Creating Agents
+
+Place `*.md` files in the `agents/` directory:
+
+```markdown
+---
+name: agent-name
+description: Agent specialization
+tools: ["Read", "Grep", "Glob"]
+---
+
+# Agent Title
+
+Agent behavior and instructions...
+```
+
+## Testing Locally
+
+```bash
+# Add your plugin as a local marketplace
+/plugin marketplace add /path/to/my-plugin
+
+# Install it
+/plugin install my-plugin
+
+# Test functionality
+# ...
+
+# Uninstall when done testing
+/plugin uninstall my-plugin
+```
+
+## Publishing
+
+1. Push to GitHub
+2. Share the installation command:
+   ```
+   /plugin marketplace add https://github.com/username/repo
+   /plugin install my-plugin
+   ```

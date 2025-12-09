@@ -1,0 +1,14 @@
+# Hooks Directory
+
+Place hook configuration files here.
+
+Example hooks.json:
+{
+  "hooks": [
+    {
+      "event": "before_command",
+      "command": "/review",
+      "script": "./scripts/pre-review.sh"
+    }
+  ]
+}

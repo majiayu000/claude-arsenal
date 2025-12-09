@@ -1,0 +1,21 @@
+{
+  "name": "rust-dev",
+  "version": "1.0.0",
+  "description": "Rust development toolkit with best practices, code review, performance optimization, and async Rust patterns",
+  "author": {
+    "name": "majiayu000",
+    "url": "https://github.com/majiayu000"
+  },
+  "repository": "https://github.com/majiayu000/claude-arsenal",
+  "license": "MIT",
+  "keywords": [
+    "rust",
+    "rustlang",
+    "cargo",
+    "tokio",
+    "async",
+    "best-practices",
+    "code-review",
+    "performance"
+  ]
+}

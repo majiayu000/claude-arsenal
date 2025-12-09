@@ -1,0 +1,13 @@
+# CLAUDE.md Templates Directory
+
+Place CLAUDE.md project templates here.
+
+Naming convention: <project-type>.md
+
+Example:
+- rust-project.md
+- python-project.md
+- typescript-project.md
+- monorepo.md
+
+These templates can be copied to project root as CLAUDE.md
