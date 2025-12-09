@@ -36,13 +36,13 @@ curl -o ~/.claude/skills/<skill-name>.SKILL.md \
   https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/skills/<skill-name>.SKILL.md
 ```
 
-### Install Commands
+### Install Agents
 
 ```bash
-# Copy a command to your local commands directory
-mkdir -p ~/.claude/commands
-curl -o ~/.claude/commands/<command-name>.md \
-  https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/commands/<command-name>.md
+# Copy an agent to your local agents directory
+mkdir -p ~/.claude/agents
+curl -o ~/.claude/agents/<agent-name>.md \
+  https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/agents/<agent-name>.md
 ```
 
 ### Use CLAUDE.md Templates
@@ -72,16 +72,21 @@ curl -o ./CLAUDE.md \
 | [`playwright-automation`](./skills/playwright-automation.SKILL.md) | Browser automation and testing | [lackeyjb/playwright-skill](https://github.com/lackeyjb/playwright-skill) |
 | [`project-health-auditor`](./skills/project-health-auditor.SKILL.md) | Codebase health analysis | [plugins-plus](https://github.com/jeremylongshore/claude-code-plugins-plus) |
 
+### Agents
+
+| Agent | Description | Source |
+|-------|-------------|--------|
+| [`tech-lead-orchestrator`](./agents/tech-lead-orchestrator.md) | Coordinates multi-step tasks, delegates to specialists | [vijaythecoder](https://github.com/vijaythecoder/awesome-claude-agents) |
+| [`code-archaeologist`](./agents/code-archaeologist.md) | Explores and documents legacy/unfamiliar codebases | [vijaythecoder](https://github.com/vijaythecoder/awesome-claude-agents) |
+| [`backend-typescript-architect`](./agents/backend-typescript-architect.md) | Senior TS architect for Bun/Node.js, API design | [Community](https://github.com/hesreallyhim/a-list-of-claude-code-agents) |
+| [`senior-code-reviewer`](./agents/senior-code-reviewer.md) | 15+ years exp, security, performance, architecture | [Community](https://github.com/hesreallyhim/a-list-of-claude-code-agents) |
+| [`kubernetes-specialist`](./agents/kubernetes-specialist.md) | K8s manifests, Helm, GitOps, security policies | [VoltAgent](https://github.com/VoltAgent/awesome-claude-code-subagents) |
+| [`security-auditor`](./agents/security-auditor.md) | OWASP Top 10, SAST, vulnerability assessment | [VoltAgent](https://github.com/VoltAgent/awesome-claude-code-subagents) |
+
 ### Commands
 
 | Command | Description |
 |---------|-------------|
-| *Coming soon* | - |
-
-### Agents
-
-| Agent | Description |
-|-------|-------------|
 | *Coming soon* | - |
 
 ### CLAUDE.md Templates
@@ -104,6 +109,18 @@ for skill in test-driven-development systematic-debugging brainstorming git-comm
 done
 ```
 
+### Install All Agents at Once
+
+```bash
+mkdir -p ~/.claude/agents
+
+# Download all agents
+for agent in tech-lead-orchestrator code-archaeologist backend-typescript-architect senior-code-reviewer kubernetes-specialist security-auditor; do
+  curl -o ~/.claude/agents/${agent}.md \
+    https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/agents/${agent}.md
+done
+```
+
 ### Install Rust Plugin
 
 ```bash
@@ -115,17 +132,20 @@ done
 
 - [Installation Guide](./docs/installation.md)
 - [Creating Plugins](./docs/creating-plugins.md)
-- [Skills & Agents Analysis](./docs/skills-agents-analysis.md)
+- [Skills Analysis](./docs/skills-agents-analysis.md)
+- [Agents Analysis](./docs/agents-analysis.md)
 
 ## Credits
 
-This arsenal includes skills inspired by:
+This arsenal includes skills and agents inspired by:
 
 - [anthropics/skills](https://github.com/anthropics/skills) - Official Anthropic skills
 - [obra/superpowers](https://github.com/obra/superpowers) - Battle-tested development skills
 - [claude-code-plugins-plus](https://github.com/jeremylongshore/claude-code-plugins-plus) - Comprehensive plugin hub
+- [VoltAgent/awesome-claude-code-subagents](https://github.com/VoltAgent/awesome-claude-code-subagents) - 115+ production-ready agents
+- [vijaythecoder/awesome-claude-agents](https://github.com/vijaythecoder/awesome-claude-agents) - Orchestrated agent team
+- [hesreallyhim/a-list-of-claude-code-agents](https://github.com/hesreallyhim/a-list-of-claude-code-agents) - Community-submitted agents
 - [lackeyjb/playwright-skill](https://github.com/lackeyjb/playwright-skill) - Browser automation
-- [awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) - Curated skills collection
 
 ## Contributing
 
