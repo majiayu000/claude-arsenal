@@ -97,11 +97,15 @@ git checkout -b fix/[ISSUE_NUMBER]-[short-description]
 
 **4.5 Commit**
 ```bash
+# With AI signature (default)
 git commit -m "[type]: [description] (#[ISSUE_NUMBER])
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
 Co-Authored-By: Claude <noreply@anthropic.com>"
+
+# Without AI signature (if no_ai_signature=true)
+git commit -m "[type]: [description] (#[ISSUE_NUMBER])"
 ```
 
 Commit types: `fix:`, `feat:`, `docs:`, `refactor:`, `test:`, `chore:`
@@ -125,7 +129,10 @@ Fixes #[ISSUE_NUMBER]
 ## Test Plan
 - [ ] Existing tests pass
 - [ ] Manual testing done
+```
 
+Note: If `no_ai_signature` is not set or `false`, append the following to PR body:
+```
 ---
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
@@ -181,6 +188,7 @@ When invoked, the user should provide:
 - `fork_url`: User's fork URL
 - `language`: Language for PR descriptions (English/Chinese)
 - `focus`: (optional) Specific type of issues to focus on
+- `no_ai_signature`: (optional) Set to `true` to omit the "🤖 Generated with Claude Code" signature from commits and PRs
 
 ## Example Invocations
 

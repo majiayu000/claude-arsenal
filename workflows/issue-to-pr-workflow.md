@@ -152,8 +152,6 @@ cargo clippy              # Rust
 <type>: <description> (#<issue-number>)
 
 [Optional body explaining WHY, not WHAT]
-
-[Optional footer]
 ```
 
 **Types:**
@@ -174,6 +172,15 @@ fix: handle null pointer in config parser (#123)
 feat: add retry mechanism for API calls (#456)
 
 docs: update installation instructions (#789)
+```
+
+**AI Signature (Optional):**
+
+Some contributors choose to disclose AI assistance, others prefer not to. This is entirely optional:
+```
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
 ### 4.2 Push Changes
@@ -205,6 +212,8 @@ Fixes #<issue-number>
 ## Screenshots (if UI changes)
 <Before/After screenshots>
 ```
+
+**Note:** AI signature in PR body is optional. Omit if you prefer not to disclose AI assistance.
 
 ### 4.4 PR Checklist
 
