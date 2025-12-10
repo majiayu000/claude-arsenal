@@ -35,11 +35,11 @@ git clone https://github.com/majiayu000/claude-arsenal.git
 ### Skills
 
 ```bash
-# Create skills directory if not exists
-mkdir -p ~/.claude/skills
+# Create skill directory (each skill needs its own subdirectory)
+mkdir -p ~/.claude/skills/<skill-name>
 
 # Download a skill
-curl -o ~/.claude/skills/<skill-name>.SKILL.md \
+curl -o ~/.claude/skills/<skill-name>/SKILL.md \
   https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/skills/<skill-name>.SKILL.md
 ```
 
@@ -95,7 +95,7 @@ After installation, verify components are loaded:
 /plugin uninstall <plugin-name>
 
 # Remove a skill
-rm ~/.claude/skills/<skill-name>.SKILL.md
+rm -rf ~/.claude/skills/<skill-name>
 
 # Remove a command
 rm ~/.claude/commands/<command-name>.md

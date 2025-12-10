@@ -31,8 +31,9 @@ claude-arsenal/
 
 ```bash
 # Copy a skill to your local skills directory
-mkdir -p ~/.claude/skills
-curl -o ~/.claude/skills/<skill-name>.SKILL.md \
+# Note: Skills must be in a subdirectory with SKILL.md inside
+mkdir -p ~/.claude/skills/<skill-name>
+curl -o ~/.claude/skills/<skill-name>/SKILL.md \
   https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/skills/<skill-name>.SKILL.md
 ```
 
@@ -102,11 +103,10 @@ curl -o ./CLAUDE.md \
 ### Install All Skills at Once
 
 ```bash
-mkdir -p ~/.claude/skills
-
-# Download all skills
+# Download all skills (each skill needs its own subdirectory)
 for skill in test-driven-development systematic-debugging brainstorming git-commit-smart playwright-automation project-health-auditor elegant-architecture comprehensive-testing; do
-  curl -o ~/.claude/skills/${skill}.SKILL.md \
+  mkdir -p ~/.claude/skills/${skill}
+  curl -o ~/.claude/skills/${skill}/SKILL.md \
     https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/skills/${skill}.SKILL.md
 done
 ```
