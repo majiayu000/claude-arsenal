@@ -137,6 +137,7 @@ done
 - [Creating Plugins](./docs/creating-plugins.md)
 - [Skills Analysis](./docs/skills-agents-analysis.md)
 - [Agents Analysis](./docs/agents-analysis.md)
+- [Issue to PR Workflow](./docs/issue-to-pr-workflow.md) - Standardized open source contribution workflow
 
 ## Credits
 
