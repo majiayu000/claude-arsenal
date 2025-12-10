@@ -85,6 +85,7 @@ curl -o ./CLAUDE.md \
 | [`senior-code-reviewer`](./agents/senior-code-reviewer.md) | 15+ years exp, security, performance, architecture | [Community](https://github.com/hesreallyhim/a-list-of-claude-code-agents) |
 | [`kubernetes-specialist`](./agents/kubernetes-specialist.md) | K8s manifests, Helm, GitOps, security policies | [VoltAgent](https://github.com/VoltAgent/awesome-claude-code-subagents) |
 | [`security-auditor`](./agents/security-auditor.md) | OWASP Top 10, SAST, vulnerability assessment | [VoltAgent](https://github.com/VoltAgent/awesome-claude-code-subagents) |
+| [`opensource-contributor`](./agents/opensource-contributor.md) | Systematic open source contribution workflow | Custom |
 
 ### Commands
 
@@ -117,7 +118,7 @@ done
 mkdir -p ~/.claude/agents
 
 # Download all agents
-for agent in tech-lead-orchestrator code-archaeologist backend-typescript-architect senior-code-reviewer kubernetes-specialist security-auditor; do
+for agent in tech-lead-orchestrator code-archaeologist backend-typescript-architect senior-code-reviewer kubernetes-specialist security-auditor opensource-contributor; do
   curl -o ~/.claude/agents/${agent}.md \
     https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/agents/${agent}.md
 done
