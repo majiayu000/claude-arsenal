@@ -72,6 +72,7 @@ curl -o ./CLAUDE.md \
 | [`playwright-automation`](./skills/playwright-automation.SKILL.md) | Browser automation and testing | [lackeyjb/playwright-skill](https://github.com/lackeyjb/playwright-skill) |
 | [`project-health-auditor`](./skills/project-health-auditor.SKILL.md) | Codebase health analysis | [plugins-plus](https://github.com/jeremylongshore/claude-code-plugins-plus) |
 | [`elegant-architecture`](./skills/elegant-architecture.SKILL.md) | Clean architecture with 200-line file limit | Custom |
+| [`comprehensive-testing`](./skills/comprehensive-testing.SKILL.md) | Complete testing strategy: TDD, test pyramid, mocking, CI | [Anthropic](https://www.anthropic.com/engineering/claude-code-best-practices) |
 
 ### Agents
 
@@ -104,7 +105,7 @@ curl -o ./CLAUDE.md \
 mkdir -p ~/.claude/skills
 
 # Download all skills
-for skill in test-driven-development systematic-debugging brainstorming git-commit-smart playwright-automation project-health-auditor elegant-architecture; do
+for skill in test-driven-development systematic-debugging brainstorming git-commit-smart playwright-automation project-health-auditor elegant-architecture comprehensive-testing; do
   curl -o ~/.claude/skills/${skill}.SKILL.md \
     https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/skills/${skill}.SKILL.md
 done
