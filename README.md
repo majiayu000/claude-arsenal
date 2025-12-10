@@ -10,6 +10,7 @@ claude-arsenal/
 ├── skills/           # Standalone SKILL.md files
 ├── commands/         # Slash command templates
 ├── agents/           # Agent definitions
+├── workflows/        # Workflow specifications
 ├── claude-md/        # CLAUDE.md project templates
 ├── hooks/            # Hook configurations
 └── docs/             # Documentation
@@ -137,7 +138,7 @@ done
 - [Creating Plugins](./docs/creating-plugins.md)
 - [Skills Analysis](./docs/skills-agents-analysis.md)
 - [Agents Analysis](./docs/agents-analysis.md)
-- [Issue to PR Workflow](./docs/issue-to-pr-workflow.md) - Standardized open source contribution workflow
+- [Issue to PR Workflow](./workflows/issue-to-pr-workflow.md) - Standardized open source contribution workflow
 
 ## Credits
 
