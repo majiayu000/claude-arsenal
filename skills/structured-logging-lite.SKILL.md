@@ -203,6 +203,107 @@ export function getLogger(): Logger {
 
 ---
 
+## TypeScript Implementation
+
+A complete, copy-paste ready logging setup:
+
+```typescript
+// lib/logging/types.ts
+export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
+
+export interface LogEntry {
+  timestamp: string;
+  level: LogLevel;
+  message: string;
+  service: string;
+  trace_id?: string;
+  request_id?: string;
+  [key: string]: unknown;
+}
+
+export interface LoggingConfig {
+  service: string;
+  level: LogLevel;
+  pretty?: boolean;
+}
+```
+
+```typescript
+// lib/logging/logger.ts
+import { LogEntry, LogLevel, LoggingConfig } from './types';
+
+const LEVELS: Record<LogLevel, number> = { debug: 0, info: 1, warn: 2, error: 3 };
+
+class Logger {
+  private config: LoggingConfig;
+  private context: Record<string, unknown> = {};
+
+  constructor(config: LoggingConfig) {
+    this.config = config;
+  }
+
+  private shouldLog(level: LogLevel): boolean {
+    return LEVELS[level] >= LEVELS[this.config.level];
+  }
+
+  private write(level: LogLevel, message: string, data?: Record<string, unknown>) {
+    if (!this.shouldLog(level)) return;
+
+    const entry: LogEntry = {
+      timestamp: new Date().toISOString(),
+      level,
+      message,
+      service: this.config.service,
+      ...this.context,
+      ...data,
+    };
+
+    const output = this.config.pretty
+      ? `[${entry.timestamp}] ${level.toUpperCase()} ${message} ${JSON.stringify(data || {})}`
+      : JSON.stringify(entry);
+
+    console.log(output);
+  }
+
+  debug(message: string, data?: Record<string, unknown>) { this.write('debug', message, data); }
+  info(message: string, data?: Record<string, unknown>) { this.write('info', message, data); }
+  warn(message: string, data?: Record<string, unknown>) { this.write('warn', message, data); }
+  error(message: string, data?: Record<string, unknown>) { this.write('error', message, data); }
+
+  child(context: Record<string, unknown>): Logger {
+    const child = new Logger(this.config);
+    child.context = { ...this.context, ...context };
+    return child;
+  }
+}
+
+export { Logger };
+```
+
+```typescript
+// lib/logging/index.ts
+import { Logger } from './logger';
+import { LoggingConfig } from './types';
+
+let instance: Logger | null = null;
+
+export function initLogging(config: LoggingConfig): void {
+  instance = new Logger(config);
+}
+
+export function getLogger(): Logger {
+  if (!instance) throw new Error('Call initLogging() first');
+  return instance;
+}
+
+// Usage:
+// initLogging({ service: 'my-app', level: 'info', pretty: process.env.NODE_ENV === 'development' });
+// const log = getLogger();
+// log.info('Server started', { port: 3000 });
+```
+
+---
+
 ## Best Practices
 
 ### DO ✅
