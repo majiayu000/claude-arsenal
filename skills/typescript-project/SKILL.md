@@ -11,6 +11,86 @@ description: Modern TypeScript project architecture guide for 2025. Use when cre
 - **Layered architecture** — Separate lib/services/adapters
 - **200-line limit** — No file exceeds 200 lines (see elegant-architecture skill)
 - **Test reality** — Vitest/Bun test, minimal mocks
+- **No backwards compatibility** — Delete, don't deprecate. Change directly, no shims
+
+---
+
+## No Backwards Compatibility
+
+> **Delete unused code. Change directly. No compatibility layers.**
+
+### Why
+
+- Dead code is tech debt
+- Compatibility shims add complexity
+- Old patterns spread through copy-paste
+- "Temporary" workarounds become permanent
+
+### Anti-Patterns to Avoid
+
+```typescript
+// ❌ BAD: Renaming but keeping old export
+export { newName };
+export { newName as oldName }; // "for backwards compatibility"
+
+// ❌ BAD: Unused parameter with underscore
+function process(_legacyParam: string, data: Data) { ... }
+
+// ❌ BAD: Deprecated comments instead of deletion
+/** @deprecated Use newMethod instead */
+export function oldMethod() { ... }
+
+// ❌ BAD: Re-exporting removed functionality
+export { removed } from './legacy'; // Keep for existing consumers
+
+// ❌ BAD: Feature flags for old behavior
+if (config.useLegacyMode) { ... }
+```
+
+### Correct Approach
+
+```typescript
+// ✅ GOOD: Just delete and update all usages
+// Old: export { fetchData as getData }
+// New: export { fetchData }
+// Then: Find & replace all getData → fetchData
+
+// ✅ GOOD: Remove unused parameters entirely
+function process(data: Data) { ... }
+
+// ✅ GOOD: Delete deprecated code, update callers
+// Don't mark as deprecated, just remove it
+
+// ✅ GOOD: Breaking changes are fine in active development
+// Semantic versioning handles this for libraries
+```
+
+### When Changing Interfaces
+
+```typescript
+// ❌ BAD: Adding optional fields "for compatibility"
+interface User {
+  id: string;
+  name: string;
+  firstName?: string; // New field, name kept for compatibility
+  lastName?: string;
+}
+
+// ✅ GOOD: Clean break, update all usages
+interface User {
+  id: string;
+  firstName: string;
+  lastName: string;
+}
+// Then update ALL code that uses User.name
+```
+
+### Migration Strategy
+
+1. **Find all usages** — `grep -r "oldName" src/`
+2. **Update all at once** — Single commit, no transition period
+3. **Delete old code** — No deprecation warnings, just remove
+4. **Run tests** — Ensure nothing breaks
 
 ---
 
