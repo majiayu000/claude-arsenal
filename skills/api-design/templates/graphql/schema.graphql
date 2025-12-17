@@ -1,0 +1,249 @@
+# Example GraphQL Schema following best practices
+
+scalar DateTime
+scalar UUID
+
+# ============================================
+# Query
+# ============================================
+
+type Query {
+  """Get a user by ID"""
+  user(id: ID!): User
+
+  """List users with pagination and filtering"""
+  users(
+    first: Int = 20
+    after: String
+    filter: UserFilter
+  ): UserConnection!
+
+  """Get an order by ID"""
+  order(id: ID!): Order
+
+  """List orders for authenticated user"""
+  orders(
+    first: Int = 20
+    after: String
+    filter: OrderFilter
+  ): OrderConnection!
+}
+
+# ============================================
+# Mutations
+# ============================================
+
+type Mutation {
+  """Create a new user"""
+  createUser(input: CreateUserInput!): CreateUserPayload!
+
+  """Update an existing user"""
+  updateUser(id: ID!, input: UpdateUserInput!): UpdateUserPayload!
+
+  """Delete a user"""
+  deleteUser(id: ID!): DeleteUserPayload!
+
+  """Create a new order"""
+  createOrder(input: CreateOrderInput!): CreateOrderPayload!
+
+  """Update order status"""
+  updateOrderStatus(id: ID!, status: OrderStatus!): UpdateOrderPayload!
+}
+
+# ============================================
+# Subscriptions
+# ============================================
+
+type Subscription {
+  """Subscribe to order status updates"""
+  orderUpdated(orderId: ID!): Order!
+
+  """Subscribe to new orders for the authenticated user"""
+  newOrder: Order!
+}
+
+# ============================================
+# Types
+# ============================================
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  status: UserStatus!
+  orders(first: Int = 10, after: String): OrderConnection!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+
+type Order {
+  id: ID!
+  user: User!
+  items: [OrderItem!]!
+  status: OrderStatus!
+  total: Float!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
+type OrderItem {
+  id: ID!
+  productId: ID!
+  productName: String!
+  quantity: Int!
+  unitPrice: Float!
+  subtotal: Float!
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+# ============================================
+# Connections (Relay-style pagination)
+# ============================================
+
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+type OrderConnection {
+  edges: [OrderEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrderEdge {
+  node: Order!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# ============================================
+# Inputs
+# ============================================
+
+input UserFilter {
+  status: UserStatus
+  search: String
+}
+
+input OrderFilter {
+  status: OrderStatus
+  dateFrom: DateTime
+  dateTo: DateTime
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+}
+
+input UpdateUserInput {
+  name: String
+  status: UserStatus
+}
+
+input CreateOrderInput {
+  items: [OrderItemInput!]!
+}
+
+input OrderItemInput {
+  productId: ID!
+  quantity: Int!
+}
+
+# ============================================
+# Payloads (Union-based error handling)
+# ============================================
+
+union CreateUserPayload = CreateUserSuccess | ValidationError | ConflictError
+union UpdateUserPayload = UpdateUserSuccess | ValidationError | NotFoundError
+union DeleteUserPayload = DeleteUserSuccess | NotFoundError
+
+union CreateOrderPayload = CreateOrderSuccess | ValidationError
+union UpdateOrderPayload = UpdateOrderSuccess | NotFoundError | InvalidStateError
+
+type CreateUserSuccess {
+  user: User!
+}
+
+type UpdateUserSuccess {
+  user: User!
+}
+
+type DeleteUserSuccess {
+  deletedId: ID!
+}
+
+type CreateOrderSuccess {
+  order: Order!
+}
+
+type UpdateOrderSuccess {
+  order: Order!
+}
+
+# ============================================
+# Errors (typed)
+# ============================================
+
+interface Error {
+  message: String!
+  code: String!
+}
+
+type ValidationError implements Error {
+  message: String!
+  code: String!
+  field: String
+  details: [FieldError!]
+}
+
+type FieldError {
+  field: String!
+  message: String!
+}
+
+type NotFoundError implements Error {
+  message: String!
+  code: String!
+  resourceType: String!
+  resourceId: ID!
+}
+
+type ConflictError implements Error {
+  message: String!
+  code: String!
+  conflictingField: String!
+}
+
+type InvalidStateError implements Error {
+  message: String!
+  code: String!
+  currentState: String!
+  allowedTransitions: [String!]!
+}

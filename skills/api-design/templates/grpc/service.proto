@@ -1,0 +1,280 @@
+// Example gRPC service definition following best practices
+
+syntax = "proto3";
+
+package api.v1;
+
+option go_package = "github.com/example/myapp/gen/go/api/v1";
+option java_package = "com.example.myapp.api.v1";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+// ============================================
+// User Service
+// ============================================
+
+service UserService {
+  // Get a single user by ID
+  rpc GetUser(GetUserRequest) returns (User);
+
+  // List users with pagination
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+
+  // Create a new user
+  rpc CreateUser(CreateUserRequest) returns (User);
+
+  // Update an existing user
+  rpc UpdateUser(UpdateUserRequest) returns (User);
+
+  // Delete a user
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+
+  // Stream user updates (server streaming)
+  rpc WatchUsers(WatchUsersRequest) returns (stream UserEvent);
+
+  // Batch create users (client streaming)
+  rpc BatchCreateUsers(stream CreateUserRequest) returns (BatchCreateResponse);
+}
+
+// ============================================
+// Request/Response Messages
+// ============================================
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message ListUsersRequest {
+  // Maximum number of items to return (1-100, default 20)
+  int32 page_size = 1;
+
+  // Pagination token from previous response
+  string page_token = 2;
+
+  // Optional filter
+  UserFilter filter = 3;
+}
+
+message ListUsersResponse {
+  repeated User users = 1;
+
+  // Token for next page, empty if no more results
+  string next_page_token = 2;
+
+  // Total count matching the filter (optional)
+  int32 total_count = 3;
+}
+
+message CreateUserRequest {
+  string email = 1;
+  string name = 2;
+}
+
+message UpdateUserRequest {
+  string id = 1;
+
+  // Fields to update
+  string name = 2;
+  UserStatus status = 3;
+
+  // Which fields to update (for partial updates)
+  google.protobuf.FieldMask update_mask = 4;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message WatchUsersRequest {
+  // Optional: filter which users to watch
+  UserFilter filter = 1;
+}
+
+message BatchCreateResponse {
+  int32 created_count = 1;
+  int32 failed_count = 2;
+  repeated BatchError errors = 3;
+}
+
+message BatchError {
+  int32 index = 1;
+  string code = 2;
+  string message = 3;
+}
+
+// ============================================
+// Domain Messages
+// ============================================
+
+message User {
+  string id = 1;
+  string email = 2;
+  string name = 3;
+  UserStatus status = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+// First value must be UNSPECIFIED = 0
+enum UserStatus {
+  USER_STATUS_UNSPECIFIED = 0;
+  USER_STATUS_ACTIVE = 1;
+  USER_STATUS_INACTIVE = 2;
+  USER_STATUS_SUSPENDED = 3;
+}
+
+message UserFilter {
+  optional UserStatus status = 1;
+  optional string search = 2;
+}
+
+message UserEvent {
+  EventType type = 1;
+  User user = 2;
+  google.protobuf.Timestamp occurred_at = 3;
+}
+
+enum EventType {
+  EVENT_TYPE_UNSPECIFIED = 0;
+  EVENT_TYPE_CREATED = 1;
+  EVENT_TYPE_UPDATED = 2;
+  EVENT_TYPE_DELETED = 3;
+}
+
+// ============================================
+// Order Service
+// ============================================
+
+service OrderService {
+  rpc GetOrder(GetOrderRequest) returns (Order);
+  rpc ListOrders(ListOrdersRequest) returns (ListOrdersResponse);
+  rpc CreateOrder(CreateOrderRequest) returns (Order);
+  rpc UpdateOrderStatus(UpdateOrderStatusRequest) returns (Order);
+
+  // Bidirectional streaming for real-time order tracking
+  rpc TrackOrders(stream TrackOrdersRequest) returns (stream OrderUpdate);
+}
+
+message GetOrderRequest {
+  string id = 1;
+}
+
+message ListOrdersRequest {
+  int32 page_size = 1;
+  string page_token = 2;
+  OrderFilter filter = 3;
+}
+
+message ListOrdersResponse {
+  repeated Order orders = 1;
+  string next_page_token = 2;
+}
+
+message CreateOrderRequest {
+  repeated OrderItemInput items = 1;
+}
+
+message OrderItemInput {
+  string product_id = 1;
+  int32 quantity = 2;
+}
+
+message UpdateOrderStatusRequest {
+  string id = 1;
+  OrderStatus status = 2;
+}
+
+message TrackOrdersRequest {
+  oneof action {
+    string subscribe_order_id = 1;
+    string unsubscribe_order_id = 2;
+  }
+}
+
+message OrderUpdate {
+  string order_id = 1;
+  OrderStatus status = 2;
+  google.protobuf.Timestamp updated_at = 3;
+  optional string message = 4;
+}
+
+message Order {
+  string id = 1;
+  string user_id = 2;
+  repeated OrderItem items = 3;
+  OrderStatus status = 4;
+
+  // Use string for precise decimal representation
+  string total = 5;
+
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message OrderItem {
+  string id = 1;
+  string product_id = 2;
+  string product_name = 3;
+  int32 quantity = 4;
+  string unit_price = 5;
+  string subtotal = 6;
+}
+
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  ORDER_STATUS_PENDING = 1;
+  ORDER_STATUS_PROCESSING = 2;
+  ORDER_STATUS_SHIPPED = 3;
+  ORDER_STATUS_DELIVERED = 4;
+  ORDER_STATUS_CANCELLED = 5;
+}
+
+message OrderFilter {
+  optional OrderStatus status = 1;
+  optional google.protobuf.Timestamp date_from = 2;
+  optional google.protobuf.Timestamp date_to = 3;
+}
+
+// ============================================
+// Streaming Error Handling
+// ============================================
+
+// For streaming responses where errors shouldn't terminate the stream
+message StreamResult {
+  oneof result {
+    User user = 1;
+    Order order = 2;
+    StreamError error = 10;
+  }
+}
+
+message StreamError {
+  string code = 1;
+  string message = 2;
+  map<string, string> metadata = 3;
+}
+
+// ============================================
+// Health Check (standard protocol)
+// ============================================
+
+service Health {
+  rpc Check(HealthCheckRequest) returns (HealthCheckResponse);
+  rpc Watch(HealthCheckRequest) returns (stream HealthCheckResponse);
+}
+
+message HealthCheckRequest {
+  string service = 1;
+}
+
+message HealthCheckResponse {
+  enum ServingStatus {
+    UNKNOWN = 0;
+    SERVING = 1;
+    NOT_SERVING = 2;
+    SERVICE_UNKNOWN = 3;
+  }
+  ServingStatus status = 1;
+}
