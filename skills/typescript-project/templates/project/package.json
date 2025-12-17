@@ -13,14 +13,15 @@
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
-    "format": "biome format --write ."
+    "format": "biome format --write .",
+    "upgrade": "bun update --latest"
   },
   "dependencies": {
-    "zod": "^3.23.0"
+    "zod": "latest"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.0",
-    "@types/bun": "^1.1.0",
-    "typescript": "^5.7.0"
+    "@biomejs/biome": "latest",
+    "@types/bun": "latest",
+    "typescript": "latest"
   }
 }

@@ -1,15 +1,55 @@
-# Tech Stack Reference (2025)
+# Tech Stack Reference
 
 ## Table of Contents
 
-1. [Runtime](#runtime)
-2. [Build Tools](#build-tools)
-3. [Validation](#validation)
-4. [Testing](#testing)
-5. [Linting & Formatting](#linting--formatting)
-6. [Database](#database)
-7. [HTTP Framework](#http-framework)
-8. [Decision Matrix](#decision-matrix)
+1. [Version Strategy](#version-strategy)
+2. [Runtime](#runtime)
+3. [Build Tools](#build-tools)
+4. [Validation](#validation)
+5. [Testing](#testing)
+6. [Linting & Formatting](#linting--formatting)
+7. [Database](#database)
+8. [HTTP Framework](#http-framework)
+9. [Decision Matrix](#decision-matrix)
+
+---
+
+## Version Strategy
+
+> **Always use `latest`. This document describes capabilities, not version numbers.**
+
+### Why No Pinned Versions
+
+- Version numbers become outdated immediately
+- `bun add` / `npm i` automatically fetches latest stable
+- Lock files ensure reproducible builds
+- Breaking changes are expected and handled by reading changelogs
+
+### How to Stay Current
+
+```bash
+# Check outdated packages
+bun outdated
+npm outdated
+
+# Upgrade all to latest
+bun update --latest
+npm update --latest
+
+# Check for breaking changes
+# Read CHANGELOG.md or release notes before major upgrades
+```
+
+### Package Installation
+
+```bash
+# Always install without version specifier
+bun add zod                    # Gets latest
+bun add -d @biomejs/biome      # Gets latest
+
+# Never do this in templates
+bun add zod@3.23.0             # Pinned = outdated tomorrow
+```
 
 ---
 
@@ -171,6 +211,12 @@ if (!result.success) {
 }
 ```
 
+**Zod 4+ Features:**
+- 57% smaller bundle size
+- 20x faster type-checking in IDE
+- `z.templateLiteral()` for template literal types
+- `@zod/mini` for edge/serverless (minimal bundle)
+
 **Pros:**
 - TypeScript-first design
 - Excellent type inference
@@ -194,16 +240,15 @@ const UserSchema = v.object({
 type User = v.InferOutput<typeof UserSchema>;
 ```
 
-**Pros:** 10x smaller bundle than Zod
+**Pros:** Smaller bundle than Zod (use when bundle size is critical)
 
 ### Comparison
 
-| Library | Bundle Size | Performance | DX |
-|---------|-------------|-------------|-----|
-| Zod | ~12KB | Good | Excellent |
-| Valibot | ~1KB | Excellent | Good |
-| Yup | ~15KB | Slow | Good |
-| io-ts | ~8KB | Good | Complex |
+| Library | Performance | DX | Best For |
+|---------|-------------|-----|----------|
+| Zod | Excellent | Excellent | Default choice |
+| Valibot | Excellent | Good | Bundle-critical |
+| @zod/mini | Excellent | Good | Edge/serverless |
 
 ---
 
@@ -284,6 +329,8 @@ npx @biomejs/biome init
 ```json
 // biome.json
 {
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "assists": { "enabled": true },
   "organizeImports": { "enabled": true },
   "linter": {
     "enabled": true,
@@ -297,7 +344,14 @@ npx @biomejs/biome init
 }
 ```
 
-**Pros:** Faster than ESLint + Prettier combined, single tool
+**Biome 2.0+ Features:**
+- Type-aware linting without TypeScript compiler
+- Multi-file analysis and project indexing
+- 340+ lint rules
+- CSS and GraphQL support
+- 97% Prettier compatibility
+
+**Pros:** 100x faster than ESLint + Prettier, single tool
 
 ### ESLint + Prettier (Traditional)
 
@@ -410,14 +464,14 @@ npm i fastify
 
 ## Decision Matrix
 
-### For New Projects (2025)
+### For New Projects
 
 | Layer | Recommended | Alternative |
 |-------|-------------|-------------|
-| Runtime | Bun | Node.js 22 |
+| Runtime | Bun | Node.js (LTS) |
 | Build | bun build / tsup | unbuild |
-| Validation | Zod | Valibot |
-| Testing | Bun test / Vitest | Jest |
+| Validation | Zod | Valibot / @zod/mini |
+| Testing | Bun test / Vitest | Node test runner |
 | Linting | Biome | ESLint |
 | Database | Drizzle | Prisma |
 | HTTP | Hono | Fastify |

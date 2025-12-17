@@ -101,23 +101,46 @@ interface User {
 ```bash
 # Using Bun (recommended)
 bun init
-bun add -d typescript @types/bun
+bun add zod
+bun add -d typescript @types/bun @biomejs/biome
 
 # Using Node.js
 npm init -y
-npm i -D typescript @types/node tsx
+npm i zod
+npm i -D typescript @types/node tsx @biomejs/biome
 ```
 
 ### 2. Apply Tech Stack
 
-| Layer | 2025 Recommendation |
-|-------|---------------------|
+| Layer | Recommendation |
+|-------|----------------|
 | Runtime | Bun / Node 22+ |
-| Language | TypeScript 5.x (strict) |
-| Validation | Zod |
-| Testing | Vitest / Bun test |
-| Build | tsup / bun build |
-| Linting | Biome / ESLint + Prettier |
+| Language | TypeScript (latest) |
+| Validation | Zod (latest) |
+| Testing | Bun test / Vitest |
+| Build | bun build / tsup |
+| Linting | Biome (latest) |
+
+### Version Strategy
+
+> **Always use latest. Never pin versions in templates.**
+
+```json
+{
+  "dependencies": {
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "latest",
+    "typescript": "latest"
+  }
+}
+```
+
+- `bun add` / `npm i` automatically fetches latest
+- Use `bun update --latest` to upgrade all dependencies
+- Lock files (`bun.lockb`, `package-lock.json`) ensure reproducible builds
+- Breaking changes are handled by reading changelogs, not by avoiding updates
 
 ### 3. Use Standard Structure
 
