@@ -1,0 +1,7 @@
+# Application Configuration
+# Environment variables override these values with APP_ prefix
+# e.g., APP_DATABASE_URL=postgres://...
+
+listen_addr = "127.0.0.1:3000"
+database_url = "postgres://localhost/myapp"
+log_level = "debug"

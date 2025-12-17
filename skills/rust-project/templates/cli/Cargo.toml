@@ -1,0 +1,23 @@
+[package]
+name = "mycli"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# CLI parsing
+clap = { version = "*", features = ["derive"] }
+
+# Error handling
+anyhow = "*"
+thiserror = "*"
+
+# Serialization
+serde = { version = "*", features = ["derive"] }
+serde_json = "*"
+
+# Observability
+tracing = "*"
+tracing-subscriber = { version = "*", features = ["env-filter"] }
+
+# Utilities
+chrono = "*"

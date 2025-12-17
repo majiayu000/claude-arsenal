@@ -1,0 +1,46 @@
+[package]
+name = "myapp"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# Async runtime
+tokio = { version = "*", features = ["full"] }
+
+# Web framework
+axum = "*"
+tower = "*"
+tower-http = { version = "*", features = ["cors", "trace"] }
+
+# Database
+sqlx = { version = "*", features = ["runtime-tokio", "tls-native-tls", "postgres", "macros", "migrate"] }
+
+# Serialization
+serde = { version = "*", features = ["derive"] }
+serde_json = "*"
+
+# Error handling
+thiserror = "*"
+anyhow = "*"
+
+# Observability
+tracing = "*"
+tracing-subscriber = { version = "*", features = ["env-filter"] }
+
+# Configuration
+config = "*"
+
+# Utilities
+uuid = { version = "*", features = ["v4", "serde"] }
+chrono = { version = "*", features = ["serde"] }
+
+[dev-dependencies]
+tokio-test = "*"
+
+[lib]
+name = "myapp"
+path = "src/lib.rs"
+
+[[bin]]
+name = "myapp"
+path = "src/main.rs"
