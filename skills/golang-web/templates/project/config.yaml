@@ -1,0 +1,28 @@
+# Application Configuration
+# Environment variables override these values with APP_ prefix
+# e.g., APP_SERVER_PORT=9090
+
+server:
+  port: 8080
+  mode: debug  # debug, release
+  read_timeout: 30s
+  write_timeout: 30s
+
+database:
+  driver: sqlite  # sqlite, postgres, mysql
+  host: localhost
+  port: 5432
+  username: postgres
+  password: ""
+  database: data/app.db
+  ssl_mode: disable
+
+log:
+  level: info  # debug, info, warn, error
+  format: json  # json, text
+
+# LiteLLM proxy configuration
+llm:
+  base_url: http://localhost:4000
+  api_key: ${LITELLM_API_KEY}
+  default_model: gpt-4o
