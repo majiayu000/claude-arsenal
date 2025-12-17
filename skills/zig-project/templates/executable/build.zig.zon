@@ -1,0 +1,21 @@
+.{
+    .name = "myapp",
+    .version = "0.1.0",
+
+    // Minimum Zig version required
+    .minimum_zig_version = "0.13.0",
+
+    .dependencies = .{
+        // Add dependencies here:
+        // .some_dep = .{
+        //     .url = "https://github.com/user/repo/archive/refs/tags/v1.0.0.tar.gz",
+        //     .hash = "1220...",
+        // },
+    },
+
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}
