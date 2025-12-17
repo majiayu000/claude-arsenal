@@ -12,6 +12,7 @@ description: Modern TypeScript project architecture guide for 2025. Use when cre
 - **200-line limit** — No file exceeds 200 lines (see elegant-architecture skill)
 - **Test reality** — Vitest/Bun test, minimal mocks
 - **No backwards compatibility** — Delete, don't deprecate. Change directly, no shims
+- **LiteLLM for LLM APIs** — Use LiteLLM proxy for all LLM integrations, unless specific SDK required
 
 ---
 
@@ -91,6 +92,77 @@ interface User {
 2. **Update all at once** — Single commit, no transition period
 3. **Delete old code** — No deprecation warnings, just remove
 4. **Run tests** — Ensure nothing breaks
+
+---
+
+## LiteLLM for LLM APIs
+
+> **Use LiteLLM proxy for all LLM integrations. Don't call provider APIs directly.**
+
+### Why LiteLLM
+
+- **Unified interface** — One API for 100+ LLM providers (OpenAI, Anthropic, Azure, Bedrock, etc.)
+- **Provider agnostic** — Switch models without code changes
+- **Cost tracking** — Built-in usage and cost monitoring
+- **Load balancing** — Automatic failover between providers
+- **Rate limiting** — Protect against quota exhaustion
+
+### Setup
+
+```bash
+# Run LiteLLM proxy (Docker)
+docker run -p 4000:4000 ghcr.io/berriai/litellm:main-stable
+
+# Or install locally
+pip install litellm[proxy]
+litellm --model gpt-4o
+```
+
+### TypeScript Usage
+
+```typescript
+// adapters/llm.adapter.ts
+import { OpenAI } from 'openai';
+
+// Connect to LiteLLM proxy using OpenAI SDK
+const llm = new OpenAI({
+  baseURL: process.env.LITELLM_URL || 'http://localhost:4000',
+  apiKey: process.env.LITELLM_API_KEY || 'sk-1234', // Proxy API key
+});
+
+export async function complete(prompt: string, model = 'gpt-4o'): Promise<string> {
+  const response = await llm.chat.completions.create({
+    model, // Can be any model: gpt-4o, claude-3-opus, gemini-pro, etc.
+    messages: [{ role: 'user', content: prompt }],
+  });
+  return response.choices[0]?.message?.content ?? '';
+}
+```
+
+### When NOT to Use LiteLLM
+
+- Streaming with provider-specific features (e.g., Anthropic's tool use streaming)
+- Provider-specific APIs not in OpenAI format (embeddings with metadata, etc.)
+- Direct SDK required for compliance/security reasons
+
+### Anti-Patterns
+
+```typescript
+// ❌ BAD: Direct provider SDKs everywhere
+import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+// ❌ BAD: Provider-specific code scattered across codebase
+if (provider === 'anthropic') { ... }
+else if (provider === 'openai') { ... }
+
+// ✅ GOOD: Single LiteLLM adapter, switch models via config
+const response = await llm.chat.completions.create({
+  model: config.llmModel, // "gpt-4o" or "claude-3-opus" or "gemini-pro"
+  messages,
+});
+```
 
 ---
 

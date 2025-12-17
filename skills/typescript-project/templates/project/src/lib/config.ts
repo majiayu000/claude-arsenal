@@ -34,6 +34,13 @@ export const config = {
   port: getEnvNumber('PORT', 3000),
   logLevel: getEnv('LOG_LEVEL', 'info') as 'debug' | 'info' | 'warn' | 'error',
 
+  // LiteLLM proxy configuration
+  llm: {
+    baseUrl: getEnv('LITELLM_URL', 'http://localhost:4000'),
+    apiKey: getEnv('LITELLM_API_KEY', 'sk-1234'),
+    defaultModel: getEnv('LLM_MODEL', 'gpt-4o'),
+  },
+
   // Database (uncomment when needed)
   // db: {
   //   url: getEnv('DATABASE_URL'),

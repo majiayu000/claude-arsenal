@@ -17,6 +17,7 @@
     "upgrade": "bun update --latest"
   },
   "dependencies": {
+    "openai": "latest",
     "zod": "latest"
   },
   "devDependencies": {
