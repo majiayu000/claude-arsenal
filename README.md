@@ -1,15 +1,14 @@
 # Claude Arsenal
 
-A comprehensive collection of Claude Code plugins, skills, agents, commands, and templates.
+A comprehensive collection of Claude Code skills, agents, commands, and templates for modern software development.
 
 ## Structure
 
 ```
 claude-arsenal/
-├── plugins/          # Complete plugin packages (installable via /plugin)
-├── skills/           # Standalone SKILL.md files
-├── commands/         # Slash command templates
+├── skills/           # Standalone skills (SKILL.md files)
 ├── agents/           # Agent definitions
+├── commands/         # Slash command templates
 ├── workflows/        # Workflow specifications
 ├── claude-md/        # CLAUDE.md project templates
 ├── hooks/            # Hook configurations
@@ -18,65 +17,113 @@ claude-arsenal/
 
 ## Installation
 
-### Install a Plugin
+### Install Skills
+
+Skills can be installed globally (all projects) or locally (single project).
+
+#### Option 1: Global Installation (Recommended)
 
 ```bash
-# Add this repository as a marketplace
-/plugin marketplace add https://github.com/majiayu000/claude-arsenal/plugins/<plugin-name>
+# Clone the repository
+git clone https://github.com/majiayu000/claude-arsenal.git
 
-# Install the plugin
-/plugin install <plugin-name>
+# Create symlinks for skills you want (new format: directory-based)
+ln -s $(pwd)/claude-arsenal/skills/typescript-project ~/.claude/skills/typescript-project
+ln -s $(pwd)/claude-arsenal/skills/devops-excellence ~/.claude/skills/devops-excellence
+
+# For old format skills (single file), create directory first
+mkdir -p ~/.claude/skills/test-driven-development
+ln -s $(pwd)/claude-arsenal/skills/test-driven-development.SKILL.md ~/.claude/skills/test-driven-development/SKILL.md
 ```
 
-### Install Individual Skills
+#### Option 2: Copy Files Directly
 
 ```bash
-# Copy a skill to your local skills directory
-# Note: Skills must be in a subdirectory with SKILL.md inside
-mkdir -p ~/.claude/skills/<skill-name>
-curl -o ~/.claude/skills/<skill-name>/SKILL.md \
-  https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/skills/<skill-name>.SKILL.md
+# New format skills (directory-based)
+cp -r skills/typescript-project ~/.claude/skills/
+
+# Old format skills (single file) - need to create directory
+mkdir -p ~/.claude/skills/test-driven-development
+cp skills/test-driven-development.SKILL.md ~/.claude/skills/test-driven-development/SKILL.md
 ```
+
+#### Option 3: Project-Local Installation
+
+```bash
+# In your project root
+mkdir -p .claude/skills
+cp -r /path/to/claude-arsenal/skills/typescript-project .claude/skills/
+```
+
+### Verify Installation
+
+In Claude Code, type `/skills` to see installed skills.
 
 ### Install Agents
 
 ```bash
-# Copy an agent to your local agents directory
 mkdir -p ~/.claude/agents
-curl -o ~/.claude/agents/<agent-name>.md \
-  https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/agents/<agent-name>.md
+
+# Download agents
+for agent in tech-lead-orchestrator code-archaeologist backend-typescript-architect senior-code-reviewer kubernetes-specialist security-auditor opensource-contributor; do
+  curl -o ~/.claude/agents/${agent}.md \
+    https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/agents/${agent}.md
+done
 ```
 
-### Use CLAUDE.md Templates
+## Available Skills
 
-```bash
-# Download a template for your project
-curl -o ./CLAUDE.md \
-  https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/claude-md/<template-name>.md
-```
+### Development Architecture (Language-Specific)
 
-## Available Components
+| Skill | Description | Key Features |
+|-------|-------------|--------------|
+| [`typescript-project`](./skills/typescript-project/) | Modern TypeScript project architecture | ESM, Zod, Biome, LiteLLM, No Backwards Compatibility |
+| [`python-project`](./skills/python-project/) | Python project with modern tooling | uv, Pydantic, Ruff, pyproject.toml |
+| [`rust-project`](./skills/rust-project/) | Rust application architecture | Cargo, error handling, async patterns |
+| [`golang-web`](./skills/golang-web/) | Go web application patterns | Chi/Echo, sqlc, structured logging |
+| [`zig-project`](./skills/zig-project/) | Zig project structure | Build system, memory management |
 
-### Plugins
+### Product Lifecycle
 
-| Plugin | Description |
-|--------|-------------|
-| [`rust-dev`](./plugins/rust-dev) | Rust development toolkit with best practices |
+| Skill | Description | Hard Rules |
+|-------|-------------|------------|
+| [`prd-master`](./skills/prd-master/) | PRD writing, user stories, prioritization | No Vague Metrics, INVEST-Compliant Stories |
+| [`product-discovery`](./skills/product-discovery/) | Market research, user interviews, JTBD | Evidence-Based Decisions, No Solution-First |
+| [`technical-spec`](./skills/technical-spec/) | Design docs, ADR, C4 model | Alternatives Required, Diagrams Required |
+| [`product-analytics`](./skills/product-analytics/) | Event tracking, AARRR, A/B testing | No PII in Events, Object_Action Naming |
+| [`devops-excellence`](./skills/devops-excellence/) | CI/CD, Docker, Kubernetes, GitOps | No Static Credentials, No Root Containers |
+| [`observability-sre`](./skills/observability-sre/) | Monitoring, logging, tracing, SLO/SLI | Symptom-Based Alerts, Low Cardinality Labels |
 
-### Skills
+### API & Backend
+
+| Skill | Description |
+|-------|-------------|
+| [`api-design`](./skills/api-design/) | RESTful API design patterns, OpenAPI |
+| [`auth-security`](./skills/auth-security/) | Authentication, authorization, security best practices |
+| [`database-patterns`](./skills/database-patterns/) | Database design, migrations, query optimization |
+| [`mcp-server-development`](./skills/mcp-server-development/) | Model Context Protocol server development |
+
+### Development Practices
 
 | Skill | Description | Source |
 |-------|-------------|--------|
 | [`test-driven-development`](./skills/test-driven-development.SKILL.md) | TDD with RED-GREEN-REFACTOR cycle | [obra/superpowers](https://github.com/obra/superpowers) |
 | [`systematic-debugging`](./skills/systematic-debugging.SKILL.md) | 4-phase debugging framework | [obra/superpowers](https://github.com/obra/superpowers) |
 | [`brainstorming`](./skills/brainstorming.SKILL.md) | Socratic design refinement | [obra/superpowers](https://github.com/obra/superpowers) |
+| [`elegant-architecture`](./skills/elegant-architecture.SKILL.md) | Clean architecture with 200-line file limit | Custom |
+| [`comprehensive-testing`](./skills/comprehensive-testing.SKILL.md) | Complete testing strategy: TDD, test pyramid, mocking | [Anthropic](https://www.anthropic.com/engineering/claude-code-best-practices) |
+
+### Tooling & Workflow
+
+| Skill | Description | Source |
+|-------|-------------|--------|
 | [`git-commit-smart`](./skills/git-commit-smart.SKILL.md) | Conventional commit message generation | [plugins-plus](https://github.com/jeremylongshore/claude-code-plugins-plus) |
 | [`playwright-automation`](./skills/playwright-automation.SKILL.md) | Browser automation and testing | [lackeyjb/playwright-skill](https://github.com/lackeyjb/playwright-skill) |
 | [`project-health-auditor`](./skills/project-health-auditor.SKILL.md) | Codebase health analysis | [plugins-plus](https://github.com/jeremylongshore/claude-code-plugins-plus) |
-| [`elegant-architecture`](./skills/elegant-architecture.SKILL.md) | Clean architecture with 200-line file limit | Custom |
-| [`comprehensive-testing`](./skills/comprehensive-testing.SKILL.md) | Complete testing strategy: TDD, test pyramid, mocking, CI | [Anthropic](https://www.anthropic.com/engineering/claude-code-best-practices) |
+| [`structured-logging`](./skills/structured-logging.SKILL.md) | JSON logging with OpenTelemetry correlation | Custom |
+| [`product-ux-expert`](./skills/product-ux-expert/) | UX evaluation and design guidance | Custom |
 
-### Agents
+## Available Agents
 
 | Agent | Description | Source |
 |-------|-------------|--------|
@@ -88,57 +135,53 @@ curl -o ./CLAUDE.md \
 | [`security-auditor`](./agents/security-auditor.md) | OWASP Top 10, SAST, vulnerability assessment | [VoltAgent](https://github.com/VoltAgent/awesome-claude-code-subagents) |
 | [`opensource-contributor`](./agents/opensource-contributor.md) | Systematic open source contribution workflow | Custom |
 
-### Commands
-
-| Command | Description |
-|---------|-------------|
-| *Coming soon* | - |
-
-### CLAUDE.md Templates
-
-| Template | Description |
-|----------|-------------|
-| [`rust-project`](./claude-md/rust-project.md) | Rust/Cargo project configuration |
-
 ## Quick Start
 
-### Install All Skills at Once
+### Install All Product Lifecycle Skills
 
 ```bash
-# Download all skills (each skill needs its own subdirectory)
-for skill in test-driven-development systematic-debugging brainstorming git-commit-smart playwright-automation project-health-auditor elegant-architecture comprehensive-testing; do
+# Clone repository
+git clone https://github.com/majiayu000/claude-arsenal.git
+cd claude-arsenal
+
+# Install product lifecycle skills
+for skill in prd-master product-discovery technical-spec product-analytics devops-excellence observability-sre; do
+  ln -sf $(pwd)/skills/${skill} ~/.claude/skills/${skill}
+done
+```
+
+### Install All Development Skills
+
+```bash
+# New format skills (directory-based)
+for skill in typescript-project python-project rust-project golang-web api-design auth-security database-patterns; do
+  ln -sf $(pwd)/skills/${skill} ~/.claude/skills/${skill}
+done
+
+# Old format skills (file-based)
+for skill in test-driven-development systematic-debugging brainstorming elegant-architecture comprehensive-testing git-commit-smart playwright-automation project-health-auditor; do
   mkdir -p ~/.claude/skills/${skill}
-  curl -o ~/.claude/skills/${skill}/SKILL.md \
-    https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/skills/${skill}.SKILL.md
+  ln -sf $(pwd)/skills/${skill}.SKILL.md ~/.claude/skills/${skill}/SKILL.md
 done
 ```
 
-### Install All Agents at Once
+## Skill Design Philosophy
 
-```bash
-mkdir -p ~/.claude/agents
+All skills in this arsenal follow these principles:
 
-# Download all agents
-for agent in tech-lead-orchestrator code-archaeologist backend-typescript-architect senior-code-reviewer kubernetes-specialist security-auditor opensource-contributor; do
-  curl -o ~/.claude/agents/${agent}.md \
-    https://raw.githubusercontent.com/majiayu000/claude-arsenal/main/agents/${agent}.md
-done
-```
-
-### Install Rust Plugin
-
-```bash
-/plugin marketplace add https://github.com/majiayu000/claude-arsenal/plugins/rust-dev
-/plugin install rust-dev
-```
+1. **Hard Rules** - Each skill has mandatory constraints (❌ FORBIDDEN / ✅ REQUIRED)
+2. **Testable** - Skills can be validated using the [skill testing guide](./docs/skill-testing-guide.md)
+3. **Practical Examples** - Real code examples, not just theory
+4. **Checklists** - Actionable verification checklists
 
 ## Documentation
 
+- [Skill Testing Guide](./docs/skill-testing-guide.md) - How to validate skills are working
+- [Skill Optimization Report](./docs/skill-optimization-report.md) - Analysis of skill effectiveness
+- [Product Lifecycle Skills (EN)](./docs/product-lifecycle-skills-en.md) - Product lifecycle coverage
+- [Product Lifecycle Skills (中文)](./docs/product-lifecycle-skills-zh.md) - 产品生命周期覆盖
 - [Installation Guide](./docs/installation.md)
 - [Creating Plugins](./docs/creating-plugins.md)
-- [Skills Analysis](./docs/skills-agents-analysis.md)
-- [Agents Analysis](./docs/agents-analysis.md)
-- [Issue to PR Workflow](./workflows/issue-to-pr-workflow.md) - Standardized open source contribution workflow
 
 ## Credits
 
