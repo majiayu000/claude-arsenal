@@ -1,0 +1,455 @@
+---
+name: product-discovery
+description: Product discovery and market research expert. Use when validating product ideas, conducting market research, user interviews, competitive analysis, or opportunity assessment. Covers JTBD, Kano model, and Value Proposition Canvas.
+---
+# Product Discovery
+
+## Core Principles
+
+- **Continuous Discovery** — Weekly user conversations, not episodic research
+- **Outcome-Driven** — Start with outcomes to achieve, not solutions to build
+- **Assumption Testing** — Validate risky assumptions before committing resources
+- **Co-Creation** — Build with customers, not just for them
+- **Data-Driven** — Use evidence over intuition and stakeholder opinions
+- **Problem-First** — Deeply understand the problem space before ideating solutions
+
+---
+
+## Quick Reference
+
+### When to Use What
+
+| Scenario | Framework/Tool | Output |
+|----------|---------------|--------|
+| Validate product idea | Product Opportunity Assessment | Go/no-go decision |
+| Size market opportunity | TAM/SAM/SOM | Market size estimates |
+| Understand user needs | User Research (interviews, surveys) | User insights, pain points |
+| Analyze competition | Competitive Analysis | Competitive landscape map |
+| Discover user motivations | Jobs-to-be-Done (JTBD) | Job stories, outcomes |
+| Prioritize features | Kano Model | Feature categorization |
+| Define value proposition | Value Proposition Canvas | Value prop statement |
+| Test product concept | Lean Startup / MVP | Validated learnings |
+| Map opportunities | Opportunity Solution Tree | Prioritized opportunities |
+
+---
+
+## Continuous Discovery Habits
+
+### The Product Trio
+
+Discovery is led by three roles working together weekly:
+
+```
+Product Manager → Defines outcomes, owns roadmap
+Designer        → Explores solutions, tests usability
+Engineer        → Assesses feasibility, proposes technical solutions
+```
+
+### Weekly Activities
+
+```markdown
+## 1. Customer Interviews (Weekly)
+- Schedule 3-5 interviews per week minimum
+- Mix of current users, churned users, prospects
+- Focus on understanding problems, not pitching solutions
+- Record and share insights with team
+
+## 2. Assumption Testing (Weekly)
+- Identify riskiest assumptions about solutions
+- Design quick tests (prototypes, landing pages, fake doors)
+- Run experiments with real users
+- Measure results against success criteria
+
+## 3. Opportunity Mapping (Ongoing)
+- Build opportunity solution tree
+- Map customer needs to potential solutions
+- Prioritize based on impact and feasibility
+- Update as you learn
+```
+
+### Discovery vs Delivery
+
+```
+Discovery (What to Build)          Delivery (How to Build It)
+├─ Customer interviews             ├─ Sprint planning
+├─ Prototype testing               ├─ Development
+├─ Assumption validation           ├─ QA testing
+├─ Market research                 ├─ Deployment
+└─ Opportunity assessment          └─ Post-launch monitoring
+
+Key difference: Discovery reduces risk BEFORE committing to build
+```
+
+---
+
+## Product Opportunity Assessment
+
+### Marty Cagan's 10 Questions
+
+Before starting any product initiative, answer these questions:
+
+```markdown
+## 1. Problem Definition
+**What problem are we solving?**
+- Be specific and measurable
+- Validate it's a real problem (not assumed)
+
+## 2. Target Market
+**For whom are we solving this problem?**
+- Define specific user segments
+- Size the addressable market (TAM/SAM/SOM)
+
+## 3. Opportunity Size
+**How big is the opportunity?**
+- Revenue potential
+- User growth potential
+- Strategic value
+
+## 4. Success Metrics
+**How will we measure success?**
+- Leading indicators (usage, engagement)
+- Lagging indicators (revenue, retention)
+- Define targets upfront
+
+## 5. Alternative Solutions
+**What alternatives exist today?**
+- Direct competitors
+- Indirect solutions
+- Current user workarounds
+
+## 6. Our Advantage
+**Why are we best suited to solve this?**
+- Unique capabilities
+- Market position
+- Technical advantages
+
+## 7. Strategic Fit
+**Why now? Why us?**
+- Market timing
+- Strategic alignment
+- Resource availability
+
+## 8. Dependencies
+**What do we need to succeed?**
+- Technical dependencies
+- Partnership requirements
+- Regulatory considerations
+
+## 9. Risks
+**What could go wrong?**
+- Market risk (will anyone want it?)
+- Execution risk (can we build it?)
+- Monetization risk (will they pay?)
+
+## 10. Cost of Delay
+**What happens if we don't build this?**
+- Competitive disadvantage
+- Lost revenue
+- Market opportunity window
+```
+
+### Value vs Effort Framework
+
+Quick prioritization of opportunities:
+
+```
+High Value, Low Effort  → Do First (Quick Wins)
+High Value, High Effort → Plan Strategically (Big Bets)
+Low Value, Low Effort   → Do Later (Fill Gaps)
+Low Value, High Effort  → Don't Do (Money Pit)
+```
+
+---
+
+## Discovery Methods
+
+### When to Use What Method
+
+```markdown
+## Generative Research (What problems exist?)
+Use when: Starting new product area, exploring unknown space
+Methods:
+- Ethnographic field studies
+- Contextual inquiry
+- Diary studies
+- Open-ended interviews
+
+## Evaluative Research (Does our solution work?)
+Use when: Testing specific solutions, validating designs
+Methods:
+- Usability testing
+- Prototype testing
+- A/B testing
+- Concept testing
+
+## Quantitative Research (How much? How many?)
+Use when: Need statistical validation, measuring impact
+Methods:
+- Surveys
+- Analytics analysis
+- A/B experiments
+- Market sizing
+
+## Qualitative Research (Why? How?)
+Use when: Understanding motivations, uncovering insights
+Methods:
+- User interviews
+- Focus groups
+- Customer advisory boards
+- User observation
+```
+
+### Interview Best Practices
+
+```markdown
+## Preparation
+- Define research goals and hypotheses
+- Create interview guide (but stay flexible)
+- Recruit right participants (6-8 per segment)
+- Schedule 45-60 min sessions
+
+## During Interview
+✓ Ask open-ended questions ("Tell me about...")
+✓ Follow up with "Why?" 5 times to get to root cause
+✓ Listen more than talk (80/20 rule)
+✓ Ask about past behavior, not future hypotheticals
+✓ Look for workarounds and pain points
+✓ Record and take notes
+
+✗ Don't ask leading questions
+✗ Don't pitch your solution
+✗ Don't ask "Would you use X?" (people lie)
+✗ Don't multi-task while interviewing
+
+## Example Questions
+- "Walk me through the last time you [did task]"
+- "What's most frustrating about [current solution]?"
+- "How are you solving this problem today?"
+- "What would make [task] easier for you?"
+- "Tell me more about that..."
+```
+
+### Survey Best Practices
+
+```markdown
+## When to Survey
+✓ Validate findings from qualitative research
+✓ Measure satisfaction or sentiment at scale
+✓ Prioritize features (Kano surveys)
+✓ Segment users by behavior/needs
+
+## Survey Design
+- Keep it short (<10 min to complete)
+- One question per screen on mobile
+- Mix question types (multiple choice, scale, open-ended)
+- Avoid leading or biased questions
+- Test survey with 5 people before sending
+
+## Question Types
+- Multiple choice → Segmentation, categorization
+- Likert scale (1-5) → Satisfaction, importance
+- Open-ended → Qualitative insights
+- Ranking → Prioritization
+- NPS (0-10) → Loyalty measurement
+
+## Distribution
+- In-app surveys (high response, biased to engaged users)
+- Email surveys (broader reach, lower response)
+- Incentivize thoughtful responses ($10 gift card, early access)
+- Follow up with interviews for interesting responses
+```
+
+---
+
+## 2025 Trends in Product Discovery
+
+### AI-Powered Research
+
+```markdown
+## AI Tools for Discovery
+- **Insight synthesis** — AI analyzes interview transcripts, identifies patterns
+- **Synthetic personas** — AI-generated user proxies for rapid testing
+- **Market intelligence** — AI tracks competitor moves, pricing changes
+- **Survey analysis** — Automated sentiment analysis, theme extraction
+- **Trend detection** — AI identifies emerging market trends early
+
+## Examples
+- Crayon → Competitive intelligence automation
+- Glimpse → Trend detection from web data
+- Delve AI → Automated persona creation
+- Attest → AI-powered survey insights
+- Quantilope → Machine learning research automation
+
+## Best Practices
+✓ Use AI to scale research, not replace human insight
+✓ Validate AI findings with real user conversations
+✓ Combine AI analysis with qualitative depth
+✗ Don't rely solely on synthetic users
+✗ Don't skip talking to real customers
+```
+
+### Continuous Discovery at Scale
+
+```markdown
+## Modern Approach
+- Discovery is embedded in every sprint, not a phase
+- Weekly user touchpoints (interviews, tests, feedback)
+- Rapid experimentation (dozens of tests running)
+- Fast pivots based on evidence (days, not months)
+
+## Team Structure
+- Product trios own discovery for their area
+- Centralized research team supports (tools, methods)
+- Customer success shares feedback loop
+- Data analysts provide quantitative insights
+
+## Cadence
+- Weekly: Customer interviews, prototype tests
+- Bi-weekly: Opportunity review, assumption validation
+- Monthly: Market analysis, competitive review
+- Quarterly: Strategic discovery (new markets, big bets)
+```
+
+---
+
+## Opportunity Solution Tree
+
+### What It Is
+
+Visual framework for mapping the path from outcome to solution:
+
+```
+        OUTCOME (Business goal)
+             |
+    ┌────────┴────────┐
+    │                 │
+OPPORTUNITY 1    OPPORTUNITY 2
+    │                 │
+    ├─ Solution A     ├─ Solution C
+    ├─ Solution B     └─ Solution D
+    └─ Solution C
+```
+
+### How to Build One
+
+```markdown
+## Step 1: Define Outcome
+Start with measurable business outcome
+Example: "Increase Day 30 retention from 20% to 30%"
+
+## Step 2: Map Opportunities
+Discover customer needs/pain points through research
+Example: "Users don't understand core features"
+
+## Step 3: Generate Solutions
+For each opportunity, brainstorm multiple solutions
+Example:
+- Better onboarding tutorial
+- In-app tooltips
+- Interactive product tour
+
+## Step 4: Test Assumptions
+For each solution, identify riskiest assumption and test
+Example: "Users will complete a 5-step tutorial"
+Test: Build simple prototype, test with 10 users
+
+## Step 5: Compare Solutions
+Use evidence to choose best path forward
+Build what tests validate, discard what fails
+```
+
+### Benefits
+
+```
+✓ Visualizes multiple paths to outcome
+✓ Prevents jumping to first solution
+✓ Encourages broad exploration before narrowing
+✓ Documents why decisions were made
+✓ Keeps team aligned on priorities
+```
+
+---
+
+## Integrating Discovery with Delivery
+
+### Discovery Kanban
+
+```markdown
+## Discovery Board Columns
+
+┌─────────────┬──────────────┬──────────────┬─────────────┐
+│ OPPORTUNITIES│ ASSUMPTIONS  │  EXPERIMENTS │  VALIDATED  │
+│             │              │              │             │
+│ Customer    │ Riskiest     │ Running      │ Ready to    │
+│ needs we've │ assumptions  │ tests        │ build       │
+│ identified  │ to validate  │              │             │
+└─────────────┴──────────────┴──────────────┴─────────────┘
+
+## Flow
+1. Opportunities flow from research
+2. Solutions generate assumptions to test
+3. Experiments validate/invalidate assumptions
+4. Validated solutions enter delivery backlog
+```
+
+### Definition of Ready
+
+Before moving from discovery to delivery:
+
+```markdown
+## Discovery Checklist
+- [ ] Customer problem validated (5+ interviews)
+- [ ] Solution tested with prototype (10+ users)
+- [ ] Success metrics defined and measurable
+- [ ] Technical feasibility confirmed by engineering
+- [ ] Business case approved (revenue/retention impact)
+- [ ] Design mocks completed and tested
+- [ ] Open questions resolved or explicitly acknowledged
+- [ ] Story broken into shippable increments
+```
+
+---
+
+## Common Anti-Patterns
+
+### What NOT to Do
+
+```markdown
+## ✗ Solution-First Discovery
+Starting with "We should build X" then finding evidence to support it
+→ Instead: Start with outcome and problem, explore multiple solutions
+
+## ✗ Episodic Research
+Doing discovery as a phase, then stopping when development starts
+→ Instead: Continuous weekly discovery throughout product lifecycle
+
+## ✗ Confirmation Bias
+Only talking to users who will validate your ideas
+→ Instead: Seek disconfirming evidence, talk to churned users
+
+## ✗ Fake Validation
+Asking "Would you use this?" and trusting the answer
+→ Instead: Test with realistic prototypes, measure actual behavior
+
+## ✗ Analysis Paralysis
+Endless research without ever shipping
+→ Instead: Define upfront what evidence is "enough" to move forward
+
+## ✗ Building for Everyone
+Trying to solve for all users at once
+→ Instead: Focus on specific segment, nail it, then expand
+
+## ✗ Ignoring Weak Signals
+Dismissing early negative feedback as "just a few users"
+→ Instead: Treat complaints as early warning signs, investigate
+```
+
+---
+
+## See Also
+
+- [reference/market-research.md](reference/market-research.md) — TAM/SAM/SOM, Porter's Five Forces
+- [reference/user-research.md](reference/user-research.md) — Interview guides, survey methods, ethnography
+- [reference/competitive-analysis.md](reference/competitive-analysis.md) — Competitive frameworks and analysis
+- [reference/opportunity-frameworks.md](reference/opportunity-frameworks.md) — JTBD, Kano, Value Proposition Canvas
+- [templates/discovery-template.md](templates/discovery-template.md) — Product discovery document template
