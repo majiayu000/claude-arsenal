@@ -15,6 +15,89 @@ description: Product discovery and market research expert. Use when validating p
 
 ---
 
+## Hard Rules (Must Follow)
+
+> These rules are mandatory. Violating them means the skill is not working correctly.
+
+### No Solution-First Thinking
+
+**Never start with a solution. Always define the problem and outcome first.**
+
+```markdown
+❌ FORBIDDEN:
+"We should build a search bar for the product page"
+"Let's add AI recommendations"
+"Users need a mobile app"
+
+✅ REQUIRED:
+"Problem: Users can't find products (40% exit rate on catalog)
+Outcome: Reduce exit rate to 20%
+Possible solutions:
+1. Search bar with filters
+2. AI-powered recommendations
+3. Better category navigation
+4. Visual product browsing"
+```
+
+### Evidence-Based Decisions
+
+**Never assume user needs without evidence from real user research.**
+
+```markdown
+❌ FORBIDDEN:
+- "Users probably want X" (assumption without data)
+- "Our competitor has X, so we need it too" (copycat without validation)
+- "The CEO thinks we should build X" (HiPPO without evidence)
+- "It's obvious users need X" (intuition without validation)
+
+✅ REQUIRED:
+- "5 out of 8 interviewed users mentioned X as a pain point"
+- "Analytics show 60% of users abandon at step 3"
+- "Prototype test: 7/10 users completed task successfully"
+- "Survey (n=500): 45% rated feature as 'must have'"
+```
+
+### Minimum Interview Threshold
+
+**Never validate a problem with fewer than 5 user interviews per segment.**
+
+```markdown
+❌ FORBIDDEN:
+- "We talked to 2 users and they loved the idea"
+- "One customer requested this feature"
+- "Based on a quick chat with sales..."
+
+✅ REQUIRED:
+| Segment | Interviews | Key Finding |
+|---------|------------|-------------|
+| Power Users | 6 | 5/6 struggle with X |
+| New Users | 5 | 4/5 drop off at onboarding |
+| Churned | 5 | 3/5 cited missing feature Y |
+
+Minimum per segment: 5 interviews
+Confidence increases with more interviews
+```
+
+### Falsifiable Assumptions
+
+**Every assumption must be testable and falsifiable with clear success criteria.**
+
+```markdown
+❌ FORBIDDEN:
+- "Users will like the new design" (not falsifiable)
+- "This will improve engagement" (no success criteria)
+- "The feature will be useful" (vague)
+
+✅ REQUIRED:
+| Assumption | Test | Success Criteria | Result |
+|------------|------|------------------|--------|
+| Users will complete onboarding in new flow | Prototype test with 10 users | >70% completion | TBD |
+| Users prefer visual search | A/B test | >10% lift in conversions | TBD |
+| Price point is acceptable | Landing page test | >3% conversion | TBD |
+```
+
+---
+
 ## Quick Reference
 
 ### When to Use What

@@ -15,6 +15,114 @@ description: Product analytics and growth expert. Use when designing event track
 
 ---
 
+## Hard Rules (Must Follow)
+
+> These rules are mandatory. Violating them means the skill is not working correctly.
+
+### No PII in Events
+
+**Events must NEVER contain personally identifiable information.**
+
+```javascript
+// ❌ FORBIDDEN: PII in event properties
+track('user_signed_up', {
+  email: 'user@example.com',     // PII!
+  name: 'John Doe',              // PII!
+  phone: '+1234567890',          // PII!
+  ip_address: '192.168.1.1',     // PII!
+  credit_card: '4111...',        // NEVER!
+});
+
+// ✅ REQUIRED: Anonymized/hashed identifiers only
+track('user_signed_up', {
+  user_id: hash('user@example.com'),  // Hashed
+  plan: 'pro',
+  source: 'organic',
+  country: 'US',                       // Broad location OK
+});
+
+// Masking utilities
+const maskEmail = (email) => {
+  const [name, domain] = email.split('@');
+  return `${name[0]}***@${domain}`;
+};
+```
+
+### Object_Action Event Naming
+
+**All event names must follow the object_action snake_case format.**
+
+```javascript
+// ❌ FORBIDDEN: Inconsistent naming
+track('signup');                    // No object
+track('newProject');                // camelCase
+track('Upload File');               // Spaces and PascalCase
+track('user-created');              // kebab-case
+track('BUTTON_CLICKED');            // SCREAMING_CASE
+
+// ✅ REQUIRED: object_action snake_case
+track('user_signed_up');
+track('project_created');
+track('file_uploaded');
+track('payment_completed');
+track('checkout_started');
+```
+
+### Actionable Metrics Only
+
+**Track metrics that drive decisions, not vanity metrics.**
+
+```javascript
+// ❌ FORBIDDEN: Vanity metrics without context
+track('page_viewed');               // No insight
+track('button_clicked');            // Too generic
+track('app_opened');                // Doesn't indicate value
+
+// ✅ REQUIRED: Actionable metrics tied to outcomes
+track('feature_activated', {
+  feature: 'dark_mode',
+  time_to_activation_hours: 2.5,
+  user_segment: 'power_user',
+});
+
+track('checkout_completed', {
+  order_value: 99.99,
+  items_count: 3,
+  payment_method: 'credit_card',
+  coupon_applied: true,
+});
+```
+
+### Statistical Rigor for Experiments
+
+**A/B tests must have proper sample size and significance thresholds.**
+
+```javascript
+// ❌ FORBIDDEN: Drawing conclusions too early
+// "After 100 users, variant B has 5% higher conversion!"
+// This is not statistically significant.
+
+// ✅ REQUIRED: Proper experiment setup
+const experimentConfig = {
+  name: 'new_checkout_flow',
+  hypothesis: 'New flow increases conversion by 10%',
+
+  // Statistical requirements
+  significance_level: 0.05,      // 95% confidence
+  power: 0.80,                   // 80% power
+  minimum_detectable_effect: 0.10, // 10% lift
+
+  // Calculated sample size
+  sample_size_per_variant: 3842,
+
+  // Guardrails
+  max_duration_days: 14,
+  stop_if_degradation: -0.05,    // Stop if 5% worse
+};
+```
+
+---
+
 ## Quick Reference
 
 ### When to Use What

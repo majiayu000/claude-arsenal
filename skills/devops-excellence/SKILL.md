@@ -17,6 +17,91 @@ description: DevOps and CI/CD expert. Use when setting up pipelines, containeriz
 
 ---
 
+## Hard Rules (Must Follow)
+
+> These rules are mandatory. Violating them means the skill is not working correctly.
+
+### No Static Credentials
+
+**Never use long-lived static credentials. Always use OIDC or short-lived tokens.**
+
+```yaml
+# ❌ FORBIDDEN: Static AWS credentials
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+# ✅ REQUIRED: OIDC-based authentication
+- name: Configure AWS Credentials
+  uses: aws-actions/configure-aws-credentials@v4
+  with:
+    role-to-assume: arn:aws:iam::123456789012:role/GitHubActions
+    aws-region: us-east-1
+    # No long-lived secrets - uses GitHub OIDC provider
+```
+
+### No Root Containers
+
+**Containers must NEVER run as root. Always specify a non-root user.**
+
+```dockerfile
+# ❌ FORBIDDEN: Running as root (default)
+FROM node:20
+WORKDIR /app
+CMD ["node", "server.js"]
+
+# ❌ FORBIDDEN: Explicit root user
+USER root
+
+# ✅ REQUIRED: Non-root user with UID > 1000
+FROM node:20-alpine
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+USER nodejs
+WORKDIR /app
+CMD ["node", "server.js"]
+```
+
+### No Secrets in Images
+
+**Never bake secrets into Docker images. Use runtime injection or secrets managers.**
+
+```dockerfile
+# ❌ FORBIDDEN: Secrets in build args or ENV
+ARG DATABASE_PASSWORD
+ENV API_KEY=sk-xxx
+
+# ❌ FORBIDDEN: Copying secret files
+COPY .env /app/.env
+COPY credentials.json /app/
+
+# ✅ REQUIRED: Mount secrets at runtime
+# docker run -v /secrets:/app/secrets:ro myapp
+# Or use Kubernetes secrets/configmaps
+```
+
+### Protected Production Deployments
+
+**Production deployments must require approval and be restricted to main branch.**
+
+```yaml
+# ❌ FORBIDDEN: Direct production deploy without protection
+deploy:
+  runs-on: ubuntu-latest
+  steps:
+    - run: deploy-to-prod.sh
+
+# ✅ REQUIRED: Environment protection
+deploy:
+  runs-on: ubuntu-latest
+  environment:
+    name: production
+    url: https://myapp.com
+  # Requires: approval + main branch only
+```
+
+---
+
 ## Quick Reference
 
 ### When to Use What

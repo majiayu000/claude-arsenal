@@ -16,6 +16,112 @@ description: Technical specification and design document expert. Use when writin
 
 ---
 
+## Hard Rules (Must Follow)
+
+> These rules are mandatory. Violating them means the skill is not working correctly.
+
+### Alternatives Required
+
+**Every design document must include at least 2 alternative solutions.**
+
+```markdown
+❌ FORBIDDEN:
+## Solution
+We will use PostgreSQL for the database.
+(No alternatives considered)
+
+✅ REQUIRED:
+## Proposed Solution
+PostgreSQL for primary database.
+
+## Alternatives Considered
+
+### Option A: PostgreSQL (Recommended)
+**Pros**: ACID compliance, JSON support, mature ecosystem
+**Cons**: Vertical scaling limits
+**Decision**: Chosen for reliability and team expertise
+
+### Option B: MongoDB
+**Pros**: Horizontal scaling, flexible schema
+**Cons**: Eventual consistency, less familiar to team
+**Decision**: Rejected due to consistency requirements
+
+### Option C: DynamoDB
+**Pros**: Serverless, auto-scaling
+**Cons**: Vendor lock-in, complex query patterns
+**Decision**: Rejected due to query flexibility needs
+```
+
+### Diagrams Required
+
+**System designs must include architecture diagrams. No text-only descriptions.**
+
+```markdown
+❌ FORBIDDEN:
+"The user sends a request to the API, which talks to the database
+and returns a response."
+
+✅ REQUIRED:
+Include at least one of:
+- C4 Context/Container diagram
+- Sequence diagram for key flows
+- Data flow diagram
+
+Example (Mermaid):
+```mermaid
+sequenceDiagram
+    Client->>API: POST /orders
+    API->>Auth: Validate token
+    Auth-->>API: User context
+    API->>DB: Create order
+    DB-->>API: Order ID
+    API-->>Client: 201 Created
+```
+```
+
+### Success Metrics Defined
+
+**Every design must include measurable success criteria.**
+
+```markdown
+❌ FORBIDDEN:
+## Goals
+- Make the system faster
+- Improve reliability
+- Better user experience
+
+✅ REQUIRED:
+## Success Metrics
+
+| Metric | Current | Target | Measurement |
+|--------|---------|--------|-------------|
+| API Latency (P95) | 500ms | <200ms | Prometheus histogram |
+| Availability | 99.5% | 99.9% | Uptime monitoring |
+| Error Rate | 2% | <0.1% | Error tracking |
+| Throughput | 1K req/s | 10K req/s | Load testing |
+```
+
+### Risks and Mitigations
+
+**All designs must identify risks and their mitigations.**
+
+```markdown
+❌ FORBIDDEN:
+(No risk section, assuming everything will work)
+
+✅ REQUIRED:
+## Risks & Mitigations
+
+| Risk | Severity | Likelihood | Mitigation |
+|------|----------|------------|------------|
+| Database migration fails | High | Medium | Backup + rollback plan, test in staging |
+| Third-party API unavailable | Medium | Low | Circuit breaker, fallback cache |
+| Team lacks expertise | Medium | Medium | Pair programming, external review |
+| Scope creep | High | High | Fixed scope document, change control |
+```
+
+---
+
 ## When to Use This Skill
 
 | Scenario | Document Type | Complexity |

@@ -15,6 +15,66 @@ description: PRD writing and product definition expert. Use when writing PRDs, u
 
 ---
 
+## Hard Rules (Must Follow)
+
+> These rules are mandatory. Violating them means the skill is not working correctly.
+
+### No Vague Metrics
+
+**All metrics and requirements must be quantifiable. Vague descriptions are forbidden.**
+
+```
+❌ FORBIDDEN:
+- "The app should be fast"
+- "Support many users"
+- "Good user experience"
+- "The system should be reliable"
+- "Easy to use interface"
+
+✅ REQUIRED:
+- "Page load time < 2s on 4G, < 500ms on WiFi (P95)"
+- "Support 10,000 concurrent users with 99.9% uptime"
+- "NPS > 50, Task completion rate > 85%"
+- "99.9% availability, MTTR < 1 hour"
+- "User can complete checkout in < 3 clicks"
+```
+
+### Problem Before Solution
+
+**Never propose a solution without clearly defining the problem first.**
+
+```
+❌ FORBIDDEN:
+"We should add a search bar to the navigation"
+
+✅ REQUIRED:
+"Problem: Users can't find products quickly (40% exit rate on catalog).
+They need a way to filter 1000+ products by attributes.
+Proposed solutions: search bar, smart filters, AI recommendations."
+```
+
+### INVEST-Compliant Stories
+
+**All user stories must pass the INVEST criteria checklist.**
+
+```
+❌ FORBIDDEN:
+- Dependent stories that can't be delivered independently
+- Stories without acceptance criteria
+- Stories too large to complete in one sprint
+- Stories without clear user value
+
+✅ REQUIRED:
+- [ ] Independent — Can be delivered alone
+- [ ] Negotiable — Details can be discussed
+- [ ] Valuable — Clear user/business value
+- [ ] Estimable — Team can estimate effort
+- [ ] Small — Fits in one sprint
+- [ ] Testable — Has acceptance criteria
+```
+
+---
+
 ## Quick Reference
 
 ### When to Use What

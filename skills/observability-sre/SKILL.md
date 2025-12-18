@@ -17,6 +17,108 @@ description: Observability and SRE expert. Use when setting up monitoring, loggi
 
 ---
 
+## Hard Rules (Must Follow)
+
+> These rules are mandatory. Violating them means the skill is not working correctly.
+
+### Symptom-Based Alerts Only
+
+**Alert on user-facing symptoms, not internal infrastructure metrics.**
+
+```yaml
+# ❌ FORBIDDEN: Alerting on internal metrics
+- alert: CPUHigh
+  expr: cpu_usage > 70%
+  # Users don't care about CPU, they care about latency
+
+- alert: MemoryHigh
+  expr: memory_usage > 80%
+  # Internal metric, may not affect users
+
+# ✅ REQUIRED: Alert on user experience
+- alert: APILatencyHigh
+  expr: slo:api_latency:p95 > 0.200
+  annotations:
+    summary: "Users experiencing slow response times"
+
+- alert: ErrorRateHigh
+  expr: slo:api_errors:rate5m > 0.001
+  annotations:
+    summary: "Users encountering errors"
+```
+
+### Low Cardinality Labels
+
+**Loki/Prometheus labels must have low cardinality (<10 unique labels).**
+
+```yaml
+# ❌ FORBIDDEN: High cardinality labels
+labels:
+  user_id: "usr_123"      # Millions of values!
+  order_id: "ord_456"     # Millions of values!
+  request_id: "req_789"   # Every request is unique!
+
+# ✅ REQUIRED: Low cardinality only
+labels:
+  namespace: "production"  # Few values
+  app: "api-server"        # Few values
+  level: "error"           # 5-6 values
+  method: "GET"            # ~10 values
+
+# High cardinality data goes in log body:
+logger.info({
+  user_id: "usr_123",      # In JSON body, not label
+  order_id: "ord_456",
+}, "Order processed");
+```
+
+### SLO-Based Error Budgets
+
+**Every service must have defined SLOs with error budget tracking.**
+
+```yaml
+# ❌ FORBIDDEN: No SLO definition
+# Just monitoring without targets
+
+# ✅ REQUIRED: Explicit SLO with budget
+# SLO: 99.9% availability
+# Error Budget: 0.1% = 43.2 minutes/month downtime
+
+groups:
+  - name: slo_tracking
+    rules:
+      - record: slo:api_availability:ratio
+        expr: sum(rate(http_requests_total{status!~"5.."}[5m])) / sum(rate(http_requests_total[5m]))
+
+      - alert: ErrorBudgetBurnRate
+        expr: slo:api_availability:ratio < 0.999
+        for: 5m
+        annotations:
+          summary: "Burning error budget too fast"
+```
+
+### Trace Context in Logs
+
+**All logs must include trace_id for correlation with distributed traces.**
+
+```typescript
+// ❌ FORBIDDEN: Logs without trace context
+logger.info("Payment processed");
+
+// ✅ REQUIRED: Include trace_id in every log
+const span = trace.getActiveSpan();
+logger.info({
+  trace_id: span?.spanContext().traceId,
+  span_id: span?.spanContext().spanId,
+  order_id: "ord_123",
+}, "Payment processed");
+
+// Output includes correlation:
+// {"trace_id":"abc123","span_id":"def456","order_id":"ord_123","msg":"Payment processed"}
+```
+
+---
+
 ## Quick Reference
 
 ### When to Use What
