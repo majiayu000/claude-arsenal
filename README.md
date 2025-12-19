@@ -83,6 +83,12 @@ done
 | [`golang-web`](./skills/golang-web/) | Go web application patterns | Chi/Echo, sqlc, structured logging |
 | [`zig-project`](./skills/zig-project/) | Zig project structure | Build system, memory management |
 
+### Mobile & Cross-Platform
+
+| Skill | Description | Key Features |
+|-------|-------------|--------------|
+| [`harmonyos-app`](./skills/harmonyos-app/) | HarmonyOS application development | ArkTS, ArkUI, Stage Model, Distributed Capabilities |
+
 ### Product Lifecycle
 
 | Skill | Description | Hard Rules |
