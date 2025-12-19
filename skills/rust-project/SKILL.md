@@ -91,13 +91,33 @@ cargo init --name app
 | Async Runtime | Tokio |
 | Web Framework | Axum |
 | Serialization | Serde |
-| Database | SQLx (compile-time checked) |
+| ORM / Database | SeaORM (async, Active Record) |
 | CLI | Clap (derive) |
 | Error (lib) | thiserror |
 | Error (app) | anyhow |
 | Logging | tracing + tracing-subscriber |
 | HTTP Client | reqwest |
 | Config | config-rs |
+
+### Web Framework Selection
+
+| Framework | Choose When |
+|-----------|-------------|
+| **Axum** (default) | Modern microservices, Tokio ecosystem, container deployment, Tower middleware |
+| Actix Web | Maximum throughput, WebSocket-heavy, mature ecosystem needed |
+| Rocket | Rapid prototyping, small teams, minimal boilerplate |
+
+> Axum provides the best balance of performance, ergonomics, and Tokio integration for most projects.
+
+### Database / ORM Selection
+
+| Library | Choose When |
+|---------|-------------|
+| **SeaORM** (default) | CRUD-heavy services, rapid development, async-first, cross-database testing |
+| SQLx | Raw SQL control, maximum performance, compile-time SQL validation |
+| Diesel | Compile-time type safety, stable schema, synchronous workloads |
+
+> SeaORM is recommended for its Active Record ergonomics, native async support, and seamless Axum integration.
 
 ### Version Strategy
 
@@ -168,6 +188,7 @@ Wire dependencies, start runtime. No business logic.
 ```rust
 // src/main.rs
 use anyhow::Result;
+use sea_orm::Database;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
@@ -180,8 +201,8 @@ async fn main() -> Result<()> {
     // Load config
     let config = myapp::config::load()?;
 
-    // Initialize infrastructure
-    let db = myapp::db::connect(&config.database_url).await?;
+    // Connect to database (SeaORM)
+    let db = Database::connect(&config.database_url).await?;
 
     // Build application state
     let state = myapp::AppState::new(db);
@@ -208,18 +229,19 @@ pub mod config;
 pub mod db;
 pub mod error;
 pub mod handlers;
-pub mod models;
+pub mod models;  // SeaORM entities
 pub mod router;
 pub mod services;
 
+use sea_orm::DatabaseConnection;
 use std::sync::Arc;
 
 pub struct AppState {
-    pub db: sqlx::PgPool,
+    pub db: DatabaseConnection,
 }
 
 impl AppState {
-    pub fn new(db: sqlx::PgPool) -> Arc<Self> {
+    pub fn new(db: DatabaseConnection) -> Arc<Self> {
         Arc::new(Self { db })
     }
 }
@@ -230,6 +252,7 @@ impl AppState {
 ```rust
 // src/error.rs
 use axum::{http::StatusCode, response::{IntoResponse, Response}, Json};
+use sea_orm::DbErr;
 use serde_json::json;
 
 #[derive(Debug, thiserror::Error)]
@@ -246,8 +269,8 @@ pub enum AppError {
     #[error("internal error")]
     Internal(#[from] anyhow::Error),
 
-    #[error("database error")]
-    Database(#[from] sqlx::Error),
+    #[error("database error: {0}")]
+    Database(#[from] DbErr),
 }
 
 impl IntoResponse for AppError {
@@ -275,12 +298,12 @@ pub type Result<T> = std::result::Result<T, AppError>;
 // src/handlers/user.rs
 use axum::{extract::{Path, State}, Json};
 use std::sync::Arc;
-use crate::{error::Result, models::User, services, AppState};
+use crate::{error::Result, models::user, services, AppState};
 
 pub async fn get_user(
     State(state): State<Arc<AppState>>,
     Path(id): Path<i64>,
-) -> Result<Json<User>> {
+) -> Result<Json<user::Model>> {
     let user = services::user::find_by_id(&state.db, id).await?;
     Ok(Json(user))
 }
@@ -288,7 +311,7 @@ pub async fn get_user(
 pub async fn create_user(
     State(state): State<Arc<AppState>>,
     Json(input): Json<CreateUserInput>,
-) -> Result<Json<User>> {
+) -> Result<Json<user::Model>> {
     let user = services::user::create(&state.db, input).await?;
     Ok(Json(user))
 }
@@ -298,27 +321,36 @@ pub async fn create_user(
 
 ```rust
 // src/services/user.rs
-use sqlx::PgPool;
-use crate::{error::{AppError, Result}, models::User};
+use sea_orm::{ActiveModelTrait, DatabaseConnection, EntityTrait, Set};
+use crate::{error::{AppError, Result}, models::user};
 
-pub async fn find_by_id(db: &PgPool, id: i64) -> Result<User> {
-    sqlx::query_as!(User, "SELECT * FROM users WHERE id = $1", id)
-        .fetch_optional(db)
+pub async fn find_by_id(db: &DatabaseConnection, id: i64) -> Result<user::Model> {
+    user::Entity::find_by_id(id)
+        .one(db)
         .await?
         .ok_or_else(|| AppError::NotFound(format!("user {}", id)))
 }
 
-pub async fn create(db: &PgPool, input: CreateUserInput) -> Result<User> {
-    let user = sqlx::query_as!(
-        User,
-        r#"INSERT INTO users (email, name) VALUES ($1, $2) RETURNING *"#,
-        input.email,
-        input.name
-    )
-    .fetch_one(db)
-    .await?;
+pub async fn create(db: &DatabaseConnection, input: CreateUserInput) -> Result<user::Model> {
+    let new_user = user::ActiveModel {
+        email: Set(input.email),
+        name: Set(input.name),
+        ..Default::default()
+    };
 
+    let user = new_user.insert(db).await?;
     Ok(user)
+}
+
+// Find with relations
+pub async fn find_with_posts(db: &DatabaseConnection, id: i64) -> Result<(user::Model, Vec<post::Model>)> {
+    user::Entity::find_by_id(id)
+        .find_with_related(post::Entity)
+        .all(db)
+        .await?
+        .into_iter()
+        .next()
+        .ok_or_else(|| AppError::NotFound(format!("user {}", id)))
 }
 ```
 
@@ -342,7 +374,7 @@ tokio = { version = "*", features = ["full"] }
 axum = "*"
 serde = { version = "*", features = ["derive"] }
 serde_json = "*"
-sqlx = { version = "*", features = ["runtime-tokio", "postgres"] }
+sea-orm = { version = "*", features = ["sqlx-postgres", "runtime-tokio-native-tls"] }
 thiserror = "*"
 anyhow = "*"
 tracing = "*"
@@ -483,15 +515,15 @@ check: fmt lint test
 clean:
 	cargo clean
 
-# Database (SQLx)
-db-create:
-	sqlx database create
-
+# Database (SeaORM)
 db-migrate:
-	sqlx migrate run
+	sea-orm-cli migrate up
 
-db-prepare:
-	cargo sqlx prepare
+db-generate:
+	sea-orm-cli generate entity -o src/models
+
+db-fresh:
+	sea-orm-cli migrate fresh
 ```
 
 ---
