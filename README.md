@@ -88,6 +88,7 @@ done
 | Skill | Description | Key Features |
 |-------|-------------|--------------|
 | [`harmonyos-app`](./skills/harmonyos-app/) | HarmonyOS application development | ArkTS, ArkUI, Stage Model, Distributed Capabilities |
+| [`app-ui-design`](./skills/app-ui-design/) | Mobile app UI design for iOS/Android | Material Design 3, HIG, Accessibility, Color Theory |
 
 ### Product Lifecycle
 
