@@ -22,19 +22,6 @@
 
 ---
 
-## Why Claude Arsenal?
-
-| Feature | anthropics/skills | obra/superpowers | **claude-arsenal** |
-|---------|------------------|------------------|-------------------|
-| Total Skills | ~20 | ~15 | **39** |
-| Specialized Agents | - | - | **7** |
-| Product Lifecycle Coverage | - | - | **Full** |
-| Language-Specific Guides | Limited | - | **5 Languages** |
-| DevOps & SRE | - | - | **Included** |
-| Chinese Documentation | - | - | **Yes** |
-
----
-
 ## Quick Start
 
 ### One-Line Install (All Skills)
