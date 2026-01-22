@@ -31,7 +31,6 @@
 | Product Lifecycle Coverage | - | - | **Full** |
 | Language-Specific Guides | Limited | - | **5 Languages** |
 | DevOps & SRE | - | - | **Included** |
-| One-Command Install | - | - | **Yes** |
 | Chinese Documentation | - | - | **Yes** |
 
 ---
