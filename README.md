@@ -1,13 +1,13 @@
 <div align="center">
   <h1>Claude Arsenal</h1>
-  <p><strong>39 Production-Ready Skills | 7 Specialized Agents | One Command Install</strong></p>
+  <p><strong>40 Production-Ready Skills | 7 Specialized Agents | One Command Install</strong></p>
 
   <p>The most comprehensive skill library for Claude Code</p>
 
   <p>
     <a href="https://github.com/majiayu000/claude-arsenal/stargazers"><img src="https://img.shields.io/github/stars/majiayu000/claude-arsenal?style=flat-square&logo=github" alt="Stars"></a>
     <a href="https://github.com/majiayu000/claude-arsenal/blob/main/LICENSE"><img src="https://img.shields.io/github/license/majiayu000/claude-arsenal?style=flat-square" alt="License"></a>
-    <img src="https://img.shields.io/badge/skills-39-blue?style=flat-square" alt="Skills">
+    <img src="https://img.shields.io/badge/skills-40-blue?style=flat-square" alt="Skills">
     <img src="https://img.shields.io/badge/agents-7-green?style=flat-square" alt="Agents">
   </p>
 
@@ -104,6 +104,7 @@ End-to-end product development from discovery to deployment.
 | [`frontend-design`](./skills/frontend-design/) | Web frontend design patterns |
 | [`ui-designer`](./skills/ui-designer.SKILL.md) | Design system toolkit |
 | [`figma-to-code`](./skills/figma-to-code.SKILL.md) | Figma to production-ready code |
+| [`figma-to-react`](./skills/figma-to-react.SKILL.md) | Pixel-perfect Figma to React/Next.js |
 | [`react-best-practices`](./skills/react-best-practices.SKILL.md) | React/Next.js performance optimization |
 | [`artifacts-builder`](./skills/artifacts-builder/) | Claude.ai HTML artifacts |
 

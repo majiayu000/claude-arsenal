@@ -1,13 +1,13 @@
 <div align="center">
   <h1>Claude Arsenal</h1>
-  <p><strong>39 个生产级 Skills | 7 个专业 Agents | 一键安装</strong></p>
+  <p><strong>40 个生产级 Skills | 7 个专业 Agents | 一键安装</strong></p>
 
   <p>最全面的 Claude Code 技能库</p>
 
   <p>
     <a href="https://github.com/majiayu000/claude-arsenal/stargazers"><img src="https://img.shields.io/github/stars/majiayu000/claude-arsenal?style=flat-square&logo=github" alt="Stars"></a>
     <a href="https://github.com/majiayu000/claude-arsenal/blob/main/LICENSE"><img src="https://img.shields.io/github/license/majiayu000/claude-arsenal?style=flat-square" alt="License"></a>
-    <img src="https://img.shields.io/badge/skills-39-blue?style=flat-square" alt="Skills">
+    <img src="https://img.shields.io/badge/skills-40-blue?style=flat-square" alt="Skills">
     <img src="https://img.shields.io/badge/agents-7-green?style=flat-square" alt="Agents">
   </p>
 
@@ -104,6 +104,7 @@ cd claude-arsenal
 | [`frontend-design`](./skills/frontend-design/) | Web 前端设计模式 |
 | [`ui-designer`](./skills/ui-designer.SKILL.md) | 设计系统工具包 |
 | [`figma-to-code`](./skills/figma-to-code.SKILL.md) | Figma 转生产级代码 |
+| [`figma-to-react`](./skills/figma-to-react.SKILL.md) | 像素级 Figma 转 React/Next.js |
 | [`react-best-practices`](./skills/react-best-practices.SKILL.md) | React/Next.js 性能优化 |
 | [`artifacts-builder`](./skills/artifacts-builder/) | Claude.ai HTML 组件 |
 
