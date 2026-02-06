@@ -1,13 +1,13 @@
 <div align="center">
   <h1>Claude Arsenal</h1>
-  <p><strong>40 个生产级 Skills | 7 个专业 Agents | 一键安装</strong></p>
+  <p><strong>46 个生产级 Skills | 7 个专业 Agents | 一键安装</strong></p>
 
   <p>最全面的 Claude Code 技能库</p>
 
   <p>
     <a href="https://github.com/majiayu000/claude-arsenal/stargazers"><img src="https://img.shields.io/github/stars/majiayu000/claude-arsenal?style=flat-square&logo=github" alt="Stars"></a>
     <a href="https://github.com/majiayu000/claude-arsenal/blob/main/LICENSE"><img src="https://img.shields.io/github/license/majiayu000/claude-arsenal?style=flat-square" alt="License"></a>
-    <img src="https://img.shields.io/badge/skills-40-blue?style=flat-square" alt="Skills">
+    <img src="https://img.shields.io/badge/skills-46-blue?style=flat-square" alt="Skills">
     <img src="https://img.shields.io/badge/agents-7-green?style=flat-square" alt="Agents">
   </p>
 
@@ -107,6 +107,7 @@ cd claude-arsenal
 | [`figma-to-react`](./skills/figma-to-react.SKILL.md) | 像素级 Figma 转 React/Next.js |
 | [`react-best-practices`](./skills/react-best-practices.SKILL.md) | React/Next.js 性能优化 |
 | [`artifacts-builder`](./skills/artifacts-builder/) | Claude.ai HTML 组件 |
+| [`ui-ux-pro-max`](./skills/ui-ux-pro-max/) | 50+ 风格、97 配色、57 字体配对、9 技术栈 |
 
 ### 工具与自动化
 
@@ -118,6 +119,16 @@ cd claude-arsenal
 | [`structured-logging`](./skills/structured-logging.SKILL.md) | JSON 日志与 OpenTelemetry |
 | [`web-asset-generator`](./skills/web-asset-generator/) | Favicon、应用图标、OG 图片 |
 | [`github-trending`](./skills/github-trending/) | GitHub 趋势分析 |
+| [`push-all`](./skills/push-all.SKILL.md) | 一键暂存、提交、推送（含安全检查） |
+| [`clash-doctor`](./skills/clash-doctor/) | Clash 代理与网络诊断 |
+| [`claude-mem`](./skills/claude-mem/) | 编排器驱动的计划与执行 |
+
+### 内容与社交媒体
+
+| 技能 | 描述 |
+|------|------|
+| [`xiaohongshu`](./skills/xiaohongshu/) | 小红书内容创作与发布 |
+| [`trip-planner`](./skills/trip-planner/) | 旅行行程规划 |
 
 ### 移动端与跨平台
 

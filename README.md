@@ -1,13 +1,13 @@
 <div align="center">
   <h1>Claude Arsenal</h1>
-  <p><strong>40 Production-Ready Skills | 7 Specialized Agents | One Command Install</strong></p>
+  <p><strong>46 Production-Ready Skills | 7 Specialized Agents | One Command Install</strong></p>
 
   <p>The most comprehensive skill library for Claude Code</p>
 
   <p>
     <a href="https://github.com/majiayu000/claude-arsenal/stargazers"><img src="https://img.shields.io/github/stars/majiayu000/claude-arsenal?style=flat-square&logo=github" alt="Stars"></a>
     <a href="https://github.com/majiayu000/claude-arsenal/blob/main/LICENSE"><img src="https://img.shields.io/github/license/majiayu000/claude-arsenal?style=flat-square" alt="License"></a>
-    <img src="https://img.shields.io/badge/skills-40-blue?style=flat-square" alt="Skills">
+    <img src="https://img.shields.io/badge/skills-46-blue?style=flat-square" alt="Skills">
     <img src="https://img.shields.io/badge/agents-7-green?style=flat-square" alt="Agents">
   </p>
 
@@ -107,6 +107,7 @@ End-to-end product development from discovery to deployment.
 | [`figma-to-react`](./skills/figma-to-react.SKILL.md) | Pixel-perfect Figma to React/Next.js |
 | [`react-best-practices`](./skills/react-best-practices.SKILL.md) | React/Next.js performance optimization |
 | [`artifacts-builder`](./skills/artifacts-builder/) | Claude.ai HTML artifacts |
+| [`ui-ux-pro-max`](./skills/ui-ux-pro-max/) | 50+ styles, 97 palettes, 57 font pairings, 9 stacks |
 
 ### Tooling & Automation
 
@@ -118,6 +119,16 @@ End-to-end product development from discovery to deployment.
 | [`structured-logging`](./skills/structured-logging.SKILL.md) | JSON logging with OpenTelemetry |
 | [`web-asset-generator`](./skills/web-asset-generator/) | Favicons, app icons, OG images |
 | [`github-trending`](./skills/github-trending/) | GitHub trending analysis |
+| [`push-all`](./skills/push-all.SKILL.md) | Stage, commit, and push with safety checks |
+| [`clash-doctor`](./skills/clash-doctor/) | Clash proxy & network diagnostics |
+| [`claude-mem`](./skills/claude-mem/) | Orchestrator-driven planning & execution |
+
+### Content & Social Media
+
+| Skill | Description |
+|-------|-------------|
+| [`xiaohongshu`](./skills/xiaohongshu/) | Xiaohongshu content creation & publishing |
+| [`trip-planner`](./skills/trip-planner/) | Travel itinerary planning |
 
 ### Mobile & Cross-Platform
 
