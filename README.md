@@ -1,13 +1,13 @@
 <div align="center">
   <h1>Claude Arsenal</h1>
-  <p><strong>46 Production-Ready Skills | 7 Specialized Agents | One Command Install</strong></p>
+  <p><strong>47 Production-Ready Skills | 7 Specialized Agents | One Command Install</strong></p>
 
   <p>The most comprehensive skill library for Claude Code</p>
 
   <p>
     <a href="https://github.com/majiayu000/claude-arsenal/stargazers"><img src="https://img.shields.io/github/stars/majiayu000/claude-arsenal?style=flat-square&logo=github" alt="Stars"></a>
     <a href="https://github.com/majiayu000/claude-arsenal/blob/main/LICENSE"><img src="https://img.shields.io/github/license/majiayu000/claude-arsenal?style=flat-square" alt="License"></a>
-    <img src="https://img.shields.io/badge/skills-46-blue?style=flat-square" alt="Skills">
+    <img src="https://img.shields.io/badge/skills-47-blue?style=flat-square" alt="Skills">
     <img src="https://img.shields.io/badge/agents-7-green?style=flat-square" alt="Agents">
   </p>
 
@@ -120,6 +120,7 @@ End-to-end product development from discovery to deployment.
 | [`web-asset-generator`](./skills/web-asset-generator/) | Favicons, app icons, OG images |
 | [`github-trending`](./skills/github-trending/) | GitHub trending analysis |
 | [`push-all`](./skills/push-all.SKILL.md) | Stage, commit, and push with safety checks |
+| [`auto-optimize`](./skills/auto-optimize/) | Autonomous codebase optimization with dimension rotation |
 | [`clash-doctor`](./skills/clash-doctor/) | Clash proxy & network diagnostics |
 | [`claude-mem`](./skills/claude-mem/) | Orchestrator-driven planning & execution |
 
