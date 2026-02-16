@@ -638,14 +638,26 @@ except: pass
 **前置条件**：用户需提供 X/Twitter 的 `auth_token`（40 位十六进制）。
 这个 token 可从已登录浏览器的 Cookies 中提取（开发者工具 → Application → Cookies → x.com → auth_token）。
 
-> **核心经验**：**不要尝试自动化登录流程！** 直接注入 auth_token 是唯一可靠方案。
-> 我们尝试过 7+ 种登录方案全部失败（见踩坑总结 22-28），原因包括：
+> **核心经验**：**不要尝试在服务器上自动化登录流程！** 直接注入 auth_token 是唯一可靠方案。
+> 我们尝试过 7+ 种登录方案全部失败（见踩坑总结 22-30），原因包括：
 > - X 的登录页在 ARM + swiftshader 上无法渲染
 > - API 登录流程会触发 IP 限频（error 399）
 > - Python HTTP 客户端被 Cloudflare TLS 指纹识别拦截
 > - Chrome 跨域请求（CORS）限制无法绕过
+> - CDP Fetch 拦截开启后 fetch 调用全部报错
 
-**注入 auth_token 到 Chrome：**
+#### 获取 auth_token
+
+用户需要在**自己的电脑浏览器**上获取 auth_token（服务器上无法完成登录）：
+
+1. 在电脑浏览器登录 x.com
+2. 打开开发者工具（F12）→ Application → Cookies → `https://x.com`
+3. 找到 `auth_token`，复制值（40 位十六进制字符串）
+
+> **关键理解**：之前"成功登录"实际上**不是在服务器上完成登录**，而是复用了一个已有的有效 auth_token。
+> 本质是"贴了一张有效的门票"，不是"重新买票"。服务器上没有任何可靠方式完成 X 的登录流程。
+
+#### 注入 auth_token 到 Chrome
 
 ```python
 # /tmp/x-inject-token.py — 通过 CDP 注入 auth_token
@@ -663,23 +675,67 @@ for ck in all_ck.get("cookies", []):
     if "x.com" in dom or "twitter.com" in dom:
         c.cmd("Network.deleteCookies", {"name": ck["name"], "domain": dom})
 
-# 2. 注入 auth_token
+# 2. 注入 auth_token（必须带 expires 参数！）
+expires = time.time() + 365 * 86400
 for dom in [".x.com", ".twitter.com"]:
     c.cmd("Network.setCookie", {
         "name": "auth_token", "value": AUTH_TOKEN,
-        "domain": dom, "path": "/", "secure": True, "httpOnly": True
+        "domain": dom, "path": "/", "secure": True, "httpOnly": True,
+        "expires": expires, "sameSite": "None"
     })
 
 # 3. 导航到 x.com/home 触发会话建立
 c.cmd("Page.navigate", {"url": "https://x.com/home"})
-time.sleep(20)  # ARM 设备需要更长等待
+time.sleep(25)  # ARM 设备需要更长等待
 
 # 4. 验证：页面标题应为 "(N) Home / X"，且 cookies 包含 ct0 和 twid
 all_ck = c.cmd("Network.getAllCookies")
 # 从 Network 层读取 cookies（ct0 是 httpOnly，JS 读不到）
+
+# 5. 保存全部 cookies（含 ct0、twid 等会话后生成的 cookie）
+x_ck = {}
+for ck in all_ck.get("cookies", []):
+    dom = ck.get("domain", "")
+    if "x.com" in dom or "twitter.com" in dom:
+        x_ck[ck["name"]] = ck["value"]
+with open(os.path.expanduser("~/.openclaw/x-cookies.json"), "w") as f:
+    json.dump(x_ck, f, indent=2)
+
+# 6. 回写全部 cookies 并带 expires（确保持久化到 Chrome 用户目录）
+for name, val in x_ck.items():
+    if isinstance(val, str):
+        for dom in [".x.com", ".twitter.com"]:
+            c.cmd("Network.setCookie", {
+                "name": name, "value": val, "domain": dom,
+                "path": "/", "secure": True,
+                "httpOnly": name in ("auth_token", "ct0"),
+                "expires": expires, "sameSite": "None"
+            })
 ```
 
-**验证成功的标志：**
+#### Cookie 持久化（关键！）
+
+> **大坑**：`Network.setCookie` 不带 `expires` 参数时，cookie 只存在内存中，
+> Chrome 重启后**全部丢失**，Twitter 检测到 session 断开会**吊销 auth_token**。
+> 一旦 token 被吊销就**永久失效**，必须用户重新在电脑上登录获取新 token。
+
+**必须做的两件事：**
+
+1. **注入时必须带 `expires` 参数**（设为 1 年后），让 Chrome 写入磁盘持久化
+2. **登录成功后回写全部 cookies**：导航到 x.com/home 后，Twitter 会生成 `ct0`、`twid` 等新 cookie，
+   这些 cookie 也需要用 `Network.setCookie` + `expires` 回写一遍，否则它们也是内存态
+
+**验证 cookie 是否持久化：**
+重启 Chrome 后，检查 cookies 是否还在：
+
+```python
+all_ck = c.cmd("Network.getAllCookies")
+auth = [ck for ck in all_ck.get("cookies", []) if ck["name"] == "auth_token"]
+print(f"auth_token exists: {len(auth) > 0}")
+```
+
+#### 验证成功的标志
+
 - 页面标题包含 `Home / X`（不是 `Login` 或空白页）
 - Cookies 中出现 `ct0`（CSRF token）和 `twid`（用户 ID）
 - URL 保持在 `x.com/home`（没被重定向到登录页）
@@ -811,3 +867,5 @@ openclaw browser status
 | 26 | `document.cookie` 读不到 `ct0` | ct0 是 httpOnly cookie，JS 无权访问 | 用 CDP `Network.getAllCookies` 从协议层读取 |
 | 27 | `urllib.request.urlopen()` 不走代理 | urllib 的 urlopen 默认**不使用** `https_proxy` 环境变量 | 显式创建 `ProxyHandler` + `build_opener` |
 | 28 | env 文件 source 报 `command not found` | 密码/token 中含 `\|` 等特殊字符未加引号，bash 把 `\|` 后面当命令执行 | env 文件中所有值用单引号包裹 |
+| 29 | Chrome 重启后 X 登录丢失，auth_token 被吊销 | `Network.setCookie` 不带 `expires` 只存内存，重启后丢失；Twitter 检测 session 断开后吊销 token | 注入 cookie 时**必须带 `expires`**（1 年），登录后回写全部 cookie 也带 expires |
+| 30 | 服务器上所有自动登录方案均失败（API/twikit/CDP Fetch/Chrome JS/CORS） | ARM 软件渲染 + Cloudflare TLS 指纹 + CORS 限制 = 无法在服务器完成登录 | **放弃在服务器登录**，让用户在自己电脑浏览器获取 auth_token 后注入 |
