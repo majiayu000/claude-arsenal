@@ -121,6 +121,7 @@ End-to-end product development from discovery to deployment.
 | [`github-trending`](./skills/github-trending/) | GitHub trending analysis |
 | [`push-all`](./skills/push-all.SKILL.md) | Stage, commit, and push with safety checks |
 | [`auto-optimize`](./skills/auto-optimize/) | Autonomous codebase optimization with dimension rotation |
+| [`vibeguard`](./skills/vibeguard/) | Task contracts, finding scoring, and lightweight anti-hallucination reviews |
 | [`clash-doctor`](./skills/clash-doctor/) | Clash proxy & network diagnostics |
 | [`claude-mem`](./skills/claude-mem/) | Orchestrator-driven planning & execution |
 

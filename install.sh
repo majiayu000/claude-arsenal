@@ -24,7 +24,7 @@ print_banner() {
     echo "╔═══════════════════════════════════════════════════════════╗"
     echo "║                                                           ║"
     echo "║              Claude Arsenal Installer                     ║"
-    echo "║     39 Skills | 7 Agents | Production Ready               ║"
+    echo "║     47 Skills | 7 Agents | Production Ready               ║"
     echo "║                                                           ║"
     echo "╚═══════════════════════════════════════════════════════════╝"
     echo -e "${NC}"

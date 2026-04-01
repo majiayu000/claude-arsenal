@@ -121,6 +121,7 @@ cd claude-arsenal
 | [`github-trending`](./skills/github-trending/) | GitHub 趋势分析 |
 | [`push-all`](./skills/push-all.SKILL.md) | 一键暂存、提交、推送（含安全检查） |
 | [`auto-optimize`](./skills/auto-optimize/) | 自主代码库优化，维度轮换扫描 |
+| [`vibeguard`](./skills/vibeguard/) | 任务契约、问题评分与轻量防幻觉复盘 |
 | [`clash-doctor`](./skills/clash-doctor/) | Clash 代理与网络诊断 |
 | [`claude-mem`](./skills/claude-mem/) | 编排器驱动的计划与执行 |
 

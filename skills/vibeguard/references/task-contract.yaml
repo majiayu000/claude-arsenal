@@ -1,0 +1,39 @@
+task_contract:
+  required:
+    - goal: "A concrete, testable objective"
+    - source_of_truth: "The file, API, document, or database that defines reality"
+    - acceptance_criteria: "At least one verifiable done condition"
+    - scope: "Files, modules, or systems allowed to change"
+
+  forbidden:
+    - "Start coding before the target behavior is clear"
+    - "Invent fields, APIs, or data sources"
+    - "Create a parallel implementation without searching first"
+    - "Mark work done without verification evidence"
+
+  warning_signs:
+    no_search_before_create:
+      severity: high
+      description: "A new file, class, or helper is being added before checking for an existing implementation"
+      action: "Search first and reuse or extend the current source of truth"
+
+    weak_acceptance:
+      severity: high
+      description: "The task has no concrete done-when statement"
+      action: "Rewrite the request as a testable outcome before coding"
+
+    oversized_step:
+      severity: medium
+      description: "One step is too large to verify safely"
+      action: "Split the change into smaller checkpoints with separate verification"
+
+    missing_spec_for_multi_file_change:
+      severity: medium
+      description: "A multi-file change is starting without a design note or plan"
+      action: "Write a short spec, dependency map, or execution plan first"
+
+review_prompts:
+  - "What exactly is being changed?"
+  - "Where is the source of truth?"
+  - "What proves the change is correct?"
+  - "What is explicitly out of scope?"
