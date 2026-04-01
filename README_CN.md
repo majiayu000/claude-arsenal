@@ -90,11 +90,11 @@ cd claude-arsenal
 
 | 技能 | 描述 | 来源 |
 |------|------|------|
-| [`test-driven-development`](./skills/test-driven-development.SKILL.md) | RED-GREEN-REFACTOR 循环 | [obra/superpowers](https://github.com/obra/superpowers) |
-| [`systematic-debugging`](./skills/systematic-debugging.SKILL.md) | 四阶段调试框架 | [obra/superpowers](https://github.com/obra/superpowers) |
-| [`elegant-architecture`](./skills/elegant-architecture.SKILL.md) | 整洁架构，200 行文件限制 | 自研 |
-| [`comprehensive-testing`](./skills/comprehensive-testing.SKILL.md) | 测试金字塔、TDD、Mock 策略 | [Anthropic](https://www.anthropic.com/engineering/claude-code-best-practices) |
-| [`brainstorming`](./skills/brainstorming.SKILL.md) | 苏格拉底式设计推敲 | [obra/superpowers](https://github.com/obra/superpowers) |
+| [`contributor`](./skills/contributor/) | 从 Issue 扫描到 PR 提交的端到端开源贡献工作流 | 自研 |
+| [`strategic-compact`](./skills/strategic-compact/) | 在逻辑边界压缩上下文，保留关键决策与约束 | 自研 |
+| [`skill-creator`](./skills/skill-creator/) | 创建、优化并评估可复用 skill | 自研 |
+| [`codex-agent`](./skills/codex-agent/) | 通过 Codex CLI 做代码审查、交叉验证和替代实现 | 自研 |
+| [`humanizer`](./skills/humanizer/) | 消除明显 AI 痕迹，让文本更自然可读 | 外部指南 + 自研整理 |
 
 ### UI/UX 与设计
 
@@ -103,30 +103,29 @@ cd claude-arsenal
 | [`app-ui-design`](./skills/app-ui-design/) | iOS/Android UI 设计，Material Design 3，HIG |
 | [`product-ux-expert`](./skills/product-ux-expert/) | UX 评估、启发式、可访问性 |
 | [`frontend-design`](./skills/frontend-design/) | Web 前端设计模式 |
-| [`ui-designer`](./skills/ui-designer.SKILL.md) | 设计系统工具包 |
-| [`figma-to-code`](./skills/figma-to-code.SKILL.md) | Figma 转生产级代码 |
-| [`figma-to-react`](./skills/figma-to-react.SKILL.md) | 像素级 Figma 转 React/Next.js |
+| [`ui-designer`](./skills/ui-designer/) | 设计系统工具包与设计交付支持 |
 | [`artifacts-builder`](./skills/artifacts-builder/) | Claude.ai HTML 组件 |
 | [`react-best-practices`](./skills/react-best-practices/) | 基于 Vercel 指南整理的 React / Next.js 性能实践 |
+| [`slides`](./skills/slides/) | 口播视频背景和演示用幻灯片生成 |
 | [`ui-ux-pro-max`](./skills/ui-ux-pro-max/) | 50+ 风格、97 配色、57 字体配对、9 技术栈 |
 
 ### 工具与自动化
 
 | 技能 | 描述 |
 |------|------|
-| [`git-commit-smart`](./skills/git-commit-smart.SKILL.md) | 规范化提交信息生成 |
-| [`playwright-automation`](./skills/playwright-automation.SKILL.md) | 浏览器自动化和测试 |
-| [`project-health-auditor`](./skills/project-health-auditor.SKILL.md) | 代码库健康分析 |
-| [`structured-logging`](./skills/structured-logging.SKILL.md) | JSON 日志与 OpenTelemetry |
 | [`web-asset-generator`](./skills/web-asset-generator/) | Favicon、应用图标、OG 图片 |
 | [`github-trending`](./skills/github-trending/) | GitHub 趋势分析 |
-| [`push-all`](./skills/push-all.SKILL.md) | 一键暂存、提交、推送（含安全检查） |
 | [`auto-optimize`](./skills/auto-optimize/) | 自主代码库优化，维度轮换扫描 |
 | [`fixflow`](./skills/fixflow/) | 严格的规划-实现-测试-提交交付工作流 |
 | [`optflow`](./skills/optflow/) | 优化机会发现与逐步交付工作流，强调持续验证 |
 | [`plan-flow`](./skills/plan-flow/) | 仓库级冗余分析与 step-test-update 执行计划 |
 | [`vibeguard`](./skills/vibeguard/) | 任务契约、问题评分与轻量防幻觉复盘 |
 | [`clash-doctor`](./skills/clash-doctor/) | Clash 代理与网络诊断 |
+| [`clash-routes`](./skills/clash-routes/) | 通过 Mihomo API 查看指定进程的代理线路 |
+| [`disk-cleaner`](./skills/disk-cleaner/) | 扫描磁盘占用并交互式清理可安全删除的内容 |
+| [`system-doctor`](./skills/system-doctor/) | 诊断 CPU、内存和进程级系统卡顿问题 |
+| [`server-deploy`](./skills/server-deploy/) | 将 Node、Python、Rust、Go 或静态站部署到远程服务器 |
+| [`server-security`](./skills/server-security/) | 审计并加固 Linux 服务器的 SSH、防火墙与暴露服务 |
 | [`claude-mem`](./skills/claude-mem/) | 编排器驱动的计划与执行 |
 
 ### 内容与社交媒体

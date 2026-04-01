@@ -90,11 +90,11 @@ End-to-end product development from discovery to deployment.
 
 | Skill | Description | Origin |
 |-------|-------------|--------|
-| [`test-driven-development`](./skills/test-driven-development.SKILL.md) | RED-GREEN-REFACTOR cycle | [obra/superpowers](https://github.com/obra/superpowers) |
-| [`systematic-debugging`](./skills/systematic-debugging.SKILL.md) | 4-phase debugging framework | [obra/superpowers](https://github.com/obra/superpowers) |
-| [`elegant-architecture`](./skills/elegant-architecture.SKILL.md) | Clean architecture, 200-line file limit | Custom |
-| [`comprehensive-testing`](./skills/comprehensive-testing.SKILL.md) | Test pyramid, TDD, mocking strategies | [Anthropic](https://www.anthropic.com/engineering/claude-code-best-practices) |
-| [`brainstorming`](./skills/brainstorming.SKILL.md) | Socratic design refinement | [obra/superpowers](https://github.com/obra/superpowers) |
+| [`contributor`](./skills/contributor/) | End-to-end open source contribution workflow from issue discovery to PR submission | Custom |
+| [`strategic-compact`](./skills/strategic-compact/) | Compress context at logical boundaries while preserving decisions and constraints | Custom |
+| [`skill-creator`](./skills/skill-creator/) | Create, improve, and benchmark reusable skills | Custom |
+| [`codex-agent`](./skills/codex-agent/) | Code review, cross-verification, and alternative implementations through Codex CLI | Custom |
+| [`humanizer`](./skills/humanizer/) | Remove obvious AI writing patterns from user-facing text | External guide + custom adaptation |
 
 ### UI/UX & Design
 
@@ -103,30 +103,29 @@ End-to-end product development from discovery to deployment.
 | [`app-ui-design`](./skills/app-ui-design/) | iOS/Android UI design, Material Design 3, HIG |
 | [`product-ux-expert`](./skills/product-ux-expert/) | UX evaluation, heuristics, accessibility |
 | [`frontend-design`](./skills/frontend-design/) | Web frontend design patterns |
-| [`ui-designer`](./skills/ui-designer.SKILL.md) | Design system toolkit |
-| [`figma-to-code`](./skills/figma-to-code.SKILL.md) | Figma to production-ready code |
-| [`figma-to-react`](./skills/figma-to-react.SKILL.md) | Pixel-perfect Figma to React/Next.js |
+| [`ui-designer`](./skills/ui-designer/) | Design system toolkit and design-dev handoff support |
 | [`artifacts-builder`](./skills/artifacts-builder/) | Claude.ai HTML artifacts |
 | [`react-best-practices`](./skills/react-best-practices/) | React and Next.js performance patterns distilled from Vercel guidance |
+| [`slides`](./skills/slides/) | Speech-friendly slide deck and background slide generation |
 | [`ui-ux-pro-max`](./skills/ui-ux-pro-max/) | 50+ styles, 97 palettes, 57 font pairings, 9 stacks |
 
 ### Tooling & Automation
 
 | Skill | Description |
 |-------|-------------|
-| [`git-commit-smart`](./skills/git-commit-smart.SKILL.md) | Conventional commit generation |
-| [`playwright-automation`](./skills/playwright-automation.SKILL.md) | Browser automation and testing |
-| [`project-health-auditor`](./skills/project-health-auditor.SKILL.md) | Codebase health analysis |
-| [`structured-logging`](./skills/structured-logging.SKILL.md) | JSON logging with OpenTelemetry |
 | [`web-asset-generator`](./skills/web-asset-generator/) | Favicons, app icons, OG images |
 | [`github-trending`](./skills/github-trending/) | GitHub trending analysis |
-| [`push-all`](./skills/push-all.SKILL.md) | Stage, commit, and push with safety checks |
 | [`auto-optimize`](./skills/auto-optimize/) | Autonomous codebase optimization with dimension rotation |
 | [`fixflow`](./skills/fixflow/) | Strict plan-implement-test-commit workflow for delivery tasks |
 | [`optflow`](./skills/optflow/) | Optimization discovery and execution workflow with continuous validation |
 | [`plan-flow`](./skills/plan-flow/) | Repository-level redundancy analysis with step-test-update planning |
 | [`vibeguard`](./skills/vibeguard/) | Task contracts, finding scoring, and lightweight anti-hallucination reviews |
 | [`clash-doctor`](./skills/clash-doctor/) | Clash proxy & network diagnostics |
+| [`clash-routes`](./skills/clash-routes/) | Inspect active proxy routes for specific processes via Mihomo API |
+| [`disk-cleaner`](./skills/disk-cleaner/) | Scan and reclaim disk space with interactive cleanup guidance |
+| [`system-doctor`](./skills/system-doctor/) | Diagnose CPU, memory, and process-level system slowdowns |
+| [`server-deploy`](./skills/server-deploy/) | Deploy Node, Python, Rust, Go, or static projects to remote servers |
+| [`server-security`](./skills/server-security/) | Audit and harden Linux server SSH, firewall, and exposed services |
 | [`claude-mem`](./skills/claude-mem/) | Orchestrator-driven planning & execution |
 
 ### Content & Social Media
