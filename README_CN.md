@@ -1,13 +1,13 @@
 <div align="center">
   <h1>Claude Arsenal</h1>
-  <p><strong>47 个生产级 Skills | 7 个专业 Agents | 一键安装</strong></p>
+  <p><strong>52 个生产级 Skills | 7 个专业 Agents | 一键安装</strong></p>
 
   <p>最全面的 Claude Code 技能库</p>
 
   <p>
     <a href="https://github.com/majiayu000/claude-arsenal/stargazers"><img src="https://img.shields.io/github/stars/majiayu000/claude-arsenal?style=flat-square&logo=github" alt="Stars"></a>
     <a href="https://github.com/majiayu000/claude-arsenal/blob/main/LICENSE"><img src="https://img.shields.io/github/license/majiayu000/claude-arsenal?style=flat-square" alt="License"></a>
-    <img src="https://img.shields.io/badge/skills-47-blue?style=flat-square" alt="Skills">
+    <img src="https://img.shields.io/badge/skills-52-blue?style=flat-square" alt="Skills">
     <img src="https://img.shields.io/badge/agents-7-green?style=flat-square" alt="Agents">
   </p>
 
@@ -84,6 +84,7 @@ cd claude-arsenal
 | [`api-design`](./skills/api-design/) | REST/GraphQL/gRPC 模式，OpenAPI 3.2 |
 | [`auth-security`](./skills/auth-security/) | OAuth 2.1、JWT、安全最佳实践 |
 | [`database-patterns`](./skills/database-patterns/) | PostgreSQL、Redis、迁移、优化 |
+| [`codebase-audit`](./skills/codebase-audit/) | 自适应深度代码库审计，输出按严重度排序的问题与修复路线图 |
 
 ### 开发实践
 
@@ -105,8 +106,8 @@ cd claude-arsenal
 | [`ui-designer`](./skills/ui-designer.SKILL.md) | 设计系统工具包 |
 | [`figma-to-code`](./skills/figma-to-code.SKILL.md) | Figma 转生产级代码 |
 | [`figma-to-react`](./skills/figma-to-react.SKILL.md) | 像素级 Figma 转 React/Next.js |
-| [`react-best-practices`](./skills/react-best-practices.SKILL.md) | React/Next.js 性能优化 |
 | [`artifacts-builder`](./skills/artifacts-builder/) | Claude.ai HTML 组件 |
+| [`react-best-practices`](./skills/react-best-practices/) | 基于 Vercel 指南整理的 React / Next.js 性能实践 |
 | [`ui-ux-pro-max`](./skills/ui-ux-pro-max/) | 50+ 风格、97 配色、57 字体配对、9 技术栈 |
 
 ### 工具与自动化
@@ -121,6 +122,9 @@ cd claude-arsenal
 | [`github-trending`](./skills/github-trending/) | GitHub 趋势分析 |
 | [`push-all`](./skills/push-all.SKILL.md) | 一键暂存、提交、推送（含安全检查） |
 | [`auto-optimize`](./skills/auto-optimize/) | 自主代码库优化，维度轮换扫描 |
+| [`fixflow`](./skills/fixflow/) | 严格的规划-实现-测试-提交交付工作流 |
+| [`optflow`](./skills/optflow/) | 优化机会发现与逐步交付工作流，强调持续验证 |
+| [`plan-flow`](./skills/plan-flow/) | 仓库级冗余分析与 step-test-update 执行计划 |
 | [`vibeguard`](./skills/vibeguard/) | 任务契约、问题评分与轻量防幻觉复盘 |
 | [`clash-doctor`](./skills/clash-doctor/) | Clash 代理与网络诊断 |
 | [`claude-mem`](./skills/claude-mem/) | 编排器驱动的计划与执行 |

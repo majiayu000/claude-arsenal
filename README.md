@@ -1,13 +1,13 @@
 <div align="center">
   <h1>Claude Arsenal</h1>
-  <p><strong>47 Production-Ready Skills | 7 Specialized Agents | One Command Install</strong></p>
+  <p><strong>52 Production-Ready Skills | 7 Specialized Agents | One Command Install</strong></p>
 
   <p>The most comprehensive skill library for Claude Code</p>
 
   <p>
     <a href="https://github.com/majiayu000/claude-arsenal/stargazers"><img src="https://img.shields.io/github/stars/majiayu000/claude-arsenal?style=flat-square&logo=github" alt="Stars"></a>
     <a href="https://github.com/majiayu000/claude-arsenal/blob/main/LICENSE"><img src="https://img.shields.io/github/license/majiayu000/claude-arsenal?style=flat-square" alt="License"></a>
-    <img src="https://img.shields.io/badge/skills-47-blue?style=flat-square" alt="Skills">
+    <img src="https://img.shields.io/badge/skills-52-blue?style=flat-square" alt="Skills">
     <img src="https://img.shields.io/badge/agents-7-green?style=flat-square" alt="Agents">
   </p>
 
@@ -84,6 +84,7 @@ End-to-end product development from discovery to deployment.
 | [`api-design`](./skills/api-design/) | REST/GraphQL/gRPC patterns, OpenAPI 3.2 |
 | [`auth-security`](./skills/auth-security/) | OAuth 2.1, JWT, security best practices |
 | [`database-patterns`](./skills/database-patterns/) | PostgreSQL, Redis, migrations, optimization |
+| [`codebase-audit`](./skills/codebase-audit/) | Deep adaptive repository audit with severity-ranked findings and repair roadmap |
 
 ### Development Practices
 
@@ -105,8 +106,8 @@ End-to-end product development from discovery to deployment.
 | [`ui-designer`](./skills/ui-designer.SKILL.md) | Design system toolkit |
 | [`figma-to-code`](./skills/figma-to-code.SKILL.md) | Figma to production-ready code |
 | [`figma-to-react`](./skills/figma-to-react.SKILL.md) | Pixel-perfect Figma to React/Next.js |
-| [`react-best-practices`](./skills/react-best-practices.SKILL.md) | React/Next.js performance optimization |
 | [`artifacts-builder`](./skills/artifacts-builder/) | Claude.ai HTML artifacts |
+| [`react-best-practices`](./skills/react-best-practices/) | React and Next.js performance patterns distilled from Vercel guidance |
 | [`ui-ux-pro-max`](./skills/ui-ux-pro-max/) | 50+ styles, 97 palettes, 57 font pairings, 9 stacks |
 
 ### Tooling & Automation
@@ -121,6 +122,9 @@ End-to-end product development from discovery to deployment.
 | [`github-trending`](./skills/github-trending/) | GitHub trending analysis |
 | [`push-all`](./skills/push-all.SKILL.md) | Stage, commit, and push with safety checks |
 | [`auto-optimize`](./skills/auto-optimize/) | Autonomous codebase optimization with dimension rotation |
+| [`fixflow`](./skills/fixflow/) | Strict plan-implement-test-commit workflow for delivery tasks |
+| [`optflow`](./skills/optflow/) | Optimization discovery and execution workflow with continuous validation |
+| [`plan-flow`](./skills/plan-flow/) | Repository-level redundancy analysis with step-test-update planning |
 | [`vibeguard`](./skills/vibeguard/) | Task contracts, finding scoring, and lightweight anti-hallucination reviews |
 | [`clash-doctor`](./skills/clash-doctor/) | Clash proxy & network diagnostics |
 | [`claude-mem`](./skills/claude-mem/) | Orchestrator-driven planning & execution |
