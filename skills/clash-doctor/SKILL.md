@@ -173,9 +173,45 @@ delete:
   - PROCESS-PATH-KEYWORD,Codex.app,Proxies
 ```
 
-#### Proxies（从当前激活配置克隆住宅代理节点）
+#### Proxies（住宅代理节点配置）
 
-读取当前激活订阅的 proxies 覆盖文件，复制 append 部分的住宅代理节点。如果当前无已配置的住宅代理，提示用户手动添加。
+**优先级**：
+1. 读取当前激活订阅的 proxies 覆盖文件，如有住宅代理节点则直接复制
+2. 如无已配置的住宅代理，进入**交互式配置流程**：
+
+**交互式配置流程**：
+向用户询问以下信息（逐项或一次性提供均可）：
+
+```
+需要你提供住宅代理信息：
+1. 代理类型（socks5/http，默认 socks5）
+2. 服务器地址（IP 或域名）
+3. 端口
+4. 用户名（如有）
+5. 密码（如有）
+6. 节点显示名（默认 🏠 Residential US (AI)）
+
+示例：socks5 / 1.2.3.4 / 44539 / myuser / mypass
+```
+
+用户提供后生成 Proxies 覆盖：
+
+```yaml
+prepend: []
+
+append:
+  - name: <节点显示名>
+    type: <代理类型>
+    server: <服务器地址>
+    port: <端口>
+    username: <用户名>
+    password: <密码>
+    udp: true
+
+delete: []
+```
+
+**注意**：同时自动将代理服务器 IP 写入 Merge 的 `route-exclude-address`（TUN 防回环）。
 
 #### Groups
 
