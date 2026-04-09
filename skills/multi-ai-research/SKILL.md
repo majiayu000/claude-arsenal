@@ -400,7 +400,7 @@ for t in by_type:
         print(f"🔴 type={t[0]} 的 pending 率 >50%，可能 collector 只覆盖部分 type")
 ```
 
-**教训**（2026-04-09 实测发现）：@mylifcc 的 collector 只追踪 `reply/quote` 不追 `post`，导致 27 条 post 全部 pending 被当成"0 views"。**Phase 0 的 data health check 能提前暴露这种 bug**，避免"拿污染数据做调研"。
+**教训**（2026-04-09 实测发现）：@your-account 的 collector 只追踪 `reply/quote` 不追 `post`，导致 N 条 post 全部 pending 被当成"0 views"。**Phase 0 的 data health check 能提前暴露这种 bug**，避免"拿污染数据做调研"。
 
 ### 判定规则
 
