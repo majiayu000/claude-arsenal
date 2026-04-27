@@ -126,6 +126,8 @@ End-to-end product development from discovery to deployment.
 | [`system-doctor`](./skills/system-doctor/) | Diagnose CPU, memory, and process-level system slowdowns |
 | [`server-deploy`](./skills/server-deploy/) | Deploy Node, Python, Rust, Go, or static projects to remote servers |
 | [`server-security`](./skills/server-security/) | Audit and harden Linux server SSH, firewall, and exposed services |
+| [`cliproxy-deploy`](./skills/cliproxy-deploy/) | Deploy router-for-me/CLIProxyAPI on a Linux VPS, exposing Codex/Claude/Gemini OAuth subscription accounts as an OpenAI-compatible API |
+| [`cliproxy-newapi-stack`](./skills/cliproxy-newapi-stack/) | Layer NewAPI metering on top of CLIProxyAPI: Docker deploy, ratio-based pricing, quota top-up, dual-path verification, and OAuth account hot-swap |
 | [`claude-mem`](./skills/claude-mem/) | Orchestrator-driven planning & execution |
 
 ### Content & Social Media
