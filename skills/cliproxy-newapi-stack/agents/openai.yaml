@@ -1,0 +1,4 @@
+interface:
+  display_name: "CLIProxyAPI + NewAPI Stack"
+  short_description: "部署 CLIProxyAPI + NewAPI 计费层组合栈"
+  default_prompt: "部署 CLIProxyAPI 和 NewAPI 到 VPS，把 OAuth 订阅账号包装成可计费的 OpenAI 兼容 API"
