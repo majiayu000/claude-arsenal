@@ -1,4 +1,5 @@
 ---
+name: push-all
 description: Stage all changes, create commit, and push to remote (use with caution)
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git push:*), Bash(git diff:*), Bash(git log:*), Bash(git pull:*)
 ---

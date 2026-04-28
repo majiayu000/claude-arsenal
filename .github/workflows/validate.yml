@@ -1,0 +1,25 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  skill-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate skill registry
+        run: python3 scripts/validate_skills.py --check
+
+      - name: Validate installer syntax
+        run: |
+          bash -n install.sh
+          bash install.sh --help >/tmp/claude-arsenal-install-help.txt

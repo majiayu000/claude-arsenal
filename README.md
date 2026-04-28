@@ -1,13 +1,13 @@
 <div align="center">
   <h1>Claude Arsenal</h1>
-  <p><strong>52 Production-Ready Skills | 7 Specialized Agents | One Command Install</strong></p>
+  <p><strong>73 Production-Ready Skills | 7 Specialized Agents | One Command Install</strong></p>
 
   <p>The most comprehensive skill library for Claude Code</p>
 
   <p>
     <a href="https://github.com/majiayu000/claude-arsenal/stargazers"><img src="https://img.shields.io/github/stars/majiayu000/claude-arsenal?style=flat-square&logo=github" alt="Stars"></a>
     <a href="https://github.com/majiayu000/claude-arsenal/blob/main/LICENSE"><img src="https://img.shields.io/github/license/majiayu000/claude-arsenal?style=flat-square" alt="License"></a>
-    <img src="https://img.shields.io/badge/skills-52-blue?style=flat-square" alt="Skills">
+    <img src="https://img.shields.io/badge/skills-73-blue?style=flat-square" alt="Skills">
     <img src="https://img.shields.io/badge/agents-7-green?style=flat-square" alt="Agents">
   </p>
 
@@ -51,6 +51,8 @@ In Claude Code, type `/` to see your installed skills.
 ---
 
 ## Skills
+
+> The generated full skill inventory lives in [Skill Registry](./docs/skill-registry.md).
 
 ### Development Architecture
 
@@ -103,9 +105,11 @@ End-to-end product development from discovery to deployment.
 | [`app-ui-design`](./skills/app-ui-design/) | iOS/Android UI design, Material Design 3, HIG |
 | [`product-ux-expert`](./skills/product-ux-expert/) | UX evaluation, heuristics, accessibility |
 | [`frontend-design`](./skills/frontend-design/) | Web frontend design patterns |
-| [`ui-designer`](./skills/ui-designer/) | Design system toolkit and design-dev handoff support |
-| [`artifacts-builder`](./skills/artifacts-builder/) | Claude.ai HTML artifacts |
+| [`ui-designer`](./skills/ui-designer.SKILL.md) | Extract design systems from UI screenshots and references |
+| [`ui-design-system`](./skills/ui-design-system/) | Design system toolkit and design-dev handoff support |
+| [`web-artifacts-builder`](./skills/web-artifacts-builder/) | Claude.ai HTML artifacts |
 | [`react-best-practices`](./skills/react-best-practices/) | React and Next.js performance patterns distilled from Vercel guidance |
+| [`react-hooks-best-practices`](./skills/react-hooks-best-practices.SKILL.md) | React hooks, effects, refs, and component design patterns |
 | [`slides`](./skills/slides/) | Speech-friendly slide deck and background slide generation |
 | [`ui-ux-pro-max`](./skills/ui-ux-pro-max/) | 50+ styles, 97 palettes, 57 font pairings, 9 stacks |
 

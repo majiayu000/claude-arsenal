@@ -10,3 +10,5 @@ Why is this change needed?
 
 - [ ] Tests pass
 - [ ] Tested manually
+- [ ] `python3 scripts/validate_skills.py --check`
+- [ ] `bash -n install.sh`

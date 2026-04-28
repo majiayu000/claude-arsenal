@@ -1,8 +1,9 @@
 ---
 name: openclaw-deploy
 description: 在远程服务器上一键部署 OpenClaw。当用户需要安装 OpenClaw、部署 OpenClaw、配置 OpenClaw 到服务器时使用
-argument-hint: [SSH连接信息，如 root@host -p port]
 allowed-tools: Bash, Read, Write, AskUserQuestion, WebSearch, WebFetch, Task, Glob, Grep, Edit
+metadata:
+  argument-hint: "[SSH连接信息，如 root@host -p port]"
 ---
 
 # OpenClaw 远程一键部署

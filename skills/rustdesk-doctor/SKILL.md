@@ -1,8 +1,9 @@
 ---
 name: rustdesk-doctor
 description: 诊断 RustDesk 连接问题。当用户说 RustDesk 连不上、无法远程、ID 不显示、注册失败时使用
-argument-hint: [自建服务器IP，如 124.221.234.205]
 allowed-tools: Bash, Read, Edit, Write
+metadata:
+  argument-hint: "[自建服务器IP，如 124.221.234.205]"
 ---
 
 # RustDesk 连接诊断工具
