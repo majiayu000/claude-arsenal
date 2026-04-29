@@ -16,6 +16,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install validation dependencies
+        run: python3 -m pip install PyYAML
+
       - name: Validate skill registry
         run: python3 scripts/validate_skills.py --check
 

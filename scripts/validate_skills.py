@@ -10,6 +10,11 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+try:
+    import yaml
+except ImportError:  # pragma: no cover - exercised only on minimal user systems.
+    yaml = None
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
@@ -133,21 +138,44 @@ def strip_quotes(value: str) -> str:
     return value
 
 
-def parse_frontmatter(path: Path) -> tuple[dict[str, object], list[str]]:
-    messages: list[str] = []
-    text = path.read_text(encoding="utf-8")
+def normalize_scalar(value: object) -> object:
+    if not isinstance(value, str):
+        return value
+    return re.sub(r"\s+", " ", value).strip()
 
-    if not text.startswith("---\n"):
-        return {}, [error(f"{path.relative_to(ROOT)} is missing YAML frontmatter")]
 
-    end = text.find("\n---", 4)
-    if end == -1:
-        return {}, [error(f"{path.relative_to(ROOT)} has unterminated YAML frontmatter")]
-
+def fallback_parse_frontmatter(frontmatter_text: str, path: Path) -> tuple[dict[str, object], list[str]]:
     frontmatter: dict[str, object] = {}
+    messages: list[str] = []
     current_key: str | None = None
+    quoted_key: str | None = None
+    quote_char: str | None = None
+    quoted_parts: list[str] = []
 
-    for line in text[4:end].splitlines():
+    def finish_quoted_scalar() -> None:
+        nonlocal quoted_key, quote_char, quoted_parts
+        if quoted_key is not None:
+            frontmatter[quoted_key] = normalize_scalar(" ".join(part for part in quoted_parts if part))
+        quoted_key = None
+        quote_char = None
+        quoted_parts = []
+
+    for line in frontmatter_text.splitlines():
+        if quoted_key is not None:
+            stripped = line.strip()
+            if stripped == quote_char:
+                finish_quoted_scalar()
+                continue
+            if stripped.endswith(quote_char or ""):
+                stripped = stripped[:-1]
+                if quote_char == "'" and "''" in stripped:
+                    stripped = stripped.replace("''", "'")
+                quoted_parts.append(stripped)
+                finish_quoted_scalar()
+                continue
+            quoted_parts.append(stripped)
+            continue
+
         if not line.strip() or line.lstrip().startswith("#"):
             continue
 
@@ -155,7 +183,15 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, object], list[str]]:
         if key_match:
             current_key = key_match.group(1)
             raw_value = key_match.group(2) or ""
-            frontmatter[current_key] = strip_quotes(raw_value) if raw_value else {}
+            stripped_value = raw_value.strip()
+
+            if stripped_value[:1] in {"'", '"'} and not stripped_value.endswith(stripped_value[0]):
+                quoted_key = current_key
+                quote_char = stripped_value[0]
+                quoted_parts = [stripped_value[1:]]
+                continue
+
+            frontmatter[current_key] = normalize_scalar(strip_quotes(stripped_value)) if stripped_value else {}
             continue
 
         if current_key and line.startswith("- "):
@@ -169,12 +205,39 @@ def parse_frontmatter(path: Path) -> tuple[dict[str, object], list[str]]:
         if current_key and line.startswith("  "):
             value = frontmatter.get(current_key)
             if isinstance(value, str):
-                frontmatter[current_key] = f"{value} {strip_quotes(line)}".strip()
+                frontmatter[current_key] = normalize_scalar(f"{value} {strip_quotes(line)}")
             continue
 
         messages.append(error(f"{path.relative_to(ROOT)} has unsupported frontmatter line: {line}"))
 
+    if quoted_key is not None:
+        messages.append(error(f"{path.relative_to(ROOT)} has unterminated quoted frontmatter value: {quoted_key}"))
+
     return frontmatter, messages
+
+
+def parse_frontmatter(path: Path) -> tuple[dict[str, object], list[str]]:
+    text = path.read_text(encoding="utf-8")
+
+    if not text.startswith("---\n"):
+        return {}, [error(f"{path.relative_to(ROOT)} is missing YAML frontmatter")]
+
+    end = text.find("\n---", 4)
+    if end == -1:
+        return {}, [error(f"{path.relative_to(ROOT)} has unterminated YAML frontmatter")]
+
+    frontmatter_text = text[4:end]
+
+    if yaml is not None:
+        try:
+            parsed = yaml.safe_load(frontmatter_text)
+        except yaml.YAMLError as exc:
+            return {}, [error(f"{path.relative_to(ROOT)} has invalid YAML frontmatter: {exc}")]
+        if not isinstance(parsed, dict):
+            return {}, [error(f"{path.relative_to(ROOT)} frontmatter must be a YAML mapping")]
+        return {str(key): normalize_scalar(value) for key, value in parsed.items()}, []
+
+    return fallback_parse_frontmatter(frontmatter_text, path)
 
 
 def discover_skills() -> list[SkillEntry]:

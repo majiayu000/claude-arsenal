@@ -109,6 +109,32 @@ validate_registry() {
     python3 "$INSTALL_DIR/scripts/validate_skills.py" --check
 }
 
+prepare_directory_skill_target() {
+    local skill_name="$1"
+    local target="$SKILLS_DIR/$skill_name"
+
+    if [ -L "$target" ]; then
+        rm -f "$target"
+    elif [ -d "$target" ] && [ -L "$target/SKILL.md" ]; then
+        local linked_skill
+        linked_skill=$(readlink "$target/SKILL.md" 2>/dev/null || true)
+        if [[ "$linked_skill" == *"claude-arsenal"* ]]; then
+            rm -rf "$target"
+        fi
+    fi
+}
+
+prepare_file_skill_target() {
+    local skill_name="$1"
+    local target="$SKILLS_DIR/$skill_name"
+
+    if [ -L "$target" ]; then
+        rm -f "$target"
+    fi
+
+    mkdir -p "$target"
+}
+
 # Install all skills
 install_all_skills() {
     info "Installing all skills..."
@@ -119,6 +145,7 @@ install_all_skills() {
     for skill_dir in "$INSTALL_DIR/skills"/*/; do
         if [ -f "$skill_dir/SKILL.md" ]; then
             skill_name=$(basename "$skill_dir")
+            prepare_directory_skill_target "$skill_name"
             ln -sfn "$skill_dir" "$SKILLS_DIR/$skill_name"
             count=$((count + 1))
         fi
@@ -128,7 +155,7 @@ install_all_skills() {
     for skill_file in "$INSTALL_DIR/skills"/*.SKILL.md; do
         if [ -f "$skill_file" ]; then
             skill_name=$(basename "$skill_file" .SKILL.md)
-            mkdir -p "$SKILLS_DIR/$skill_name"
+            prepare_file_skill_target "$skill_name"
             ln -sfn "$skill_file" "$SKILLS_DIR/$skill_name/SKILL.md"
             count=$((count + 1))
         fi
@@ -150,12 +177,13 @@ install_skills() {
 
         # Check if directory-based skill
         if [ -f "$INSTALL_DIR/skills/$skill/SKILL.md" ]; then
+            prepare_directory_skill_target "$skill"
             ln -sfn "$INSTALL_DIR/skills/$skill" "$SKILLS_DIR/$skill"
             count=$((count + 1))
             info "  ✓ $skill"
         # Check if file-based skill
         elif [ -f "$INSTALL_DIR/skills/$skill.SKILL.md" ]; then
-            mkdir -p "$SKILLS_DIR/$skill"
+            prepare_file_skill_target "$skill"
             ln -sfn "$INSTALL_DIR/skills/$skill.SKILL.md" "$SKILLS_DIR/$skill/SKILL.md"
             count=$((count + 1))
             info "  ✓ $skill"
