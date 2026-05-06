@@ -1,5 +1,5 @@
 ---
-name: structured-logging
+name: structured-logging-lite
 description: Logging system design guide covering centralized architecture, field standards, and distributed tracing. Use when designing log systems, establishing standards, or debugging production issues.
 ---
 # Structured Logging System Design

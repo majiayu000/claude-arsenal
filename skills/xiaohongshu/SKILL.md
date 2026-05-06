@@ -1,8 +1,9 @@
 ---
 name: xiaohongshu
 description: 生成小红书文案和配图。当用户需要写小红书、生成社交媒体文案、小红书运营内容时使用
-argument-hint: [内容主题或素材]
 allowed-tools: WebSearch, Read, Bash, AskUserQuestion, Write, Task
+metadata:
+  argument-hint: "[内容主题或素材]"
 ---
 
 # 小红书内容生成器

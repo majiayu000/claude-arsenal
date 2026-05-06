@@ -1,7 +1,9 @@
 ---
+name: weekly
 description: 生成 om-generator 前后端周报
-argument-hint: <日期范围，如 2-1到2-7>
 allowed-tools: Bash, Read, Write, Edit, Glob, Grep, Task, mcp__plugin_claude-mem_mcp-search__search, mcp__plugin_claude-mem_mcp-search__timeline, mcp__plugin_claude-mem_mcp-search__get_observations
+metadata:
+  argument-hint: "<日期范围，如 2-1到2-7>"
 ---
 
 # 生成周报

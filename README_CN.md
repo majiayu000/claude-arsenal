@@ -1,13 +1,13 @@
 <div align="center">
   <h1>Claude Arsenal</h1>
-  <p><strong>52 个生产级 Skills | 7 个专业 Agents | 一键安装</strong></p>
+  <p><strong>73 个生产级 Skills | 7 个专业 Agents | 一键安装</strong></p>
 
   <p>最全面的 Claude Code 技能库</p>
 
   <p>
     <a href="https://github.com/majiayu000/claude-arsenal/stargazers"><img src="https://img.shields.io/github/stars/majiayu000/claude-arsenal?style=flat-square&logo=github" alt="Stars"></a>
     <a href="https://github.com/majiayu000/claude-arsenal/blob/main/LICENSE"><img src="https://img.shields.io/github/license/majiayu000/claude-arsenal?style=flat-square" alt="License"></a>
-    <img src="https://img.shields.io/badge/skills-52-blue?style=flat-square" alt="Skills">
+    <img src="https://img.shields.io/badge/skills-73-blue?style=flat-square" alt="Skills">
     <img src="https://img.shields.io/badge/agents-7-green?style=flat-square" alt="Agents">
   </p>
 
@@ -51,6 +51,8 @@ cd claude-arsenal
 ---
 
 ## 技能列表
+
+> 完整的自动生成清单位于 [Skill Registry](./docs/skill-registry.md)。
 
 ### 开发架构
 
@@ -103,9 +105,11 @@ cd claude-arsenal
 | [`app-ui-design`](./skills/app-ui-design/) | iOS/Android UI 设计，Material Design 3，HIG |
 | [`product-ux-expert`](./skills/product-ux-expert/) | UX 评估、启发式、可访问性 |
 | [`frontend-design`](./skills/frontend-design/) | Web 前端设计模式 |
-| [`ui-designer`](./skills/ui-designer/) | 设计系统工具包与设计交付支持 |
-| [`artifacts-builder`](./skills/artifacts-builder/) | Claude.ai HTML 组件 |
+| [`ui-designer`](./skills/ui-designer.SKILL.md) | 从 UI 截图和参考图提取设计系统 |
+| [`ui-design-system`](./skills/ui-design-system/) | 设计系统工具包与设计交付支持 |
+| [`web-artifacts-builder`](./skills/web-artifacts-builder/) | Claude.ai HTML 组件 |
 | [`react-best-practices`](./skills/react-best-practices/) | 基于 Vercel 指南整理的 React / Next.js 性能实践 |
+| [`react-hooks-best-practices`](./skills/react-hooks-best-practices.SKILL.md) | React hooks、effects、refs 与组件设计模式 |
 | [`slides`](./skills/slides/) | 口播视频背景和演示用幻灯片生成 |
 | [`ui-ux-pro-max`](./skills/ui-ux-pro-max/) | 50+ 风格、97 配色、57 字体配对、9 技术栈 |
 

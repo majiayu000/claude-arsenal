@@ -1,8 +1,9 @@
 ---
 name: clash-routes
 description: 查看指定进程的代理线路。通过 Mihomo API 查询当前活跃连接，显示进程匹配的规则和代理链路。用于确认某个进程（如 claude、chrome）走的是哪条订阅线路
-argument-hint: [进程名，默认显示全部]
 allowed-tools: Bash
+metadata:
+  argument-hint: "[进程名，默认显示全部]"
 ---
 
 # Clash 线路查看工具

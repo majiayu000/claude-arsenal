@@ -1,8 +1,9 @@
 ---
 name: server-security
 description: 服务器安全审计与加固。扫描 SSH、防火墙、端口暴露、文件权限、暴力破解等安全问题，生成报告并提供一键修复。当用户说服务器安全、安全审计、安全检查、安全加固时使用
-argument-hint: <ssh连接串> 如 root@1.2.3.4
 allowed-tools: Bash, AskUserQuestion
+metadata:
+  argument-hint: "<ssh连接串> 如 root@1.2.3.4"
 ---
 
 # 服务器安全审计与加固工具

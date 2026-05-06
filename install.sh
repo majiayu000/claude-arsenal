@@ -24,7 +24,7 @@ print_banner() {
     echo "╔═══════════════════════════════════════════════════════════╗"
     echo "║                                                           ║"
     echo "║              Claude Arsenal Installer                     ║"
-    echo "║     52 Skills | 7 Agents | Production Ready               ║"
+    echo "║     73 Skills | 7 Agents | Production Ready               ║"
     echo "║                                                           ║"
     echo "╚═══════════════════════════════════════════════════════════╝"
     echo -e "${NC}"
@@ -73,6 +73,68 @@ setup_directories() {
     success "Directories created"
 }
 
+list_installable_skill_names() {
+    for skill_dir in "$INSTALL_DIR/skills"/*/; do
+        if [ -f "$skill_dir/SKILL.md" ]; then
+            basename "${skill_dir%/}"
+        fi
+    done
+
+    for skill_file in "$INSTALL_DIR/skills"/*.SKILL.md; do
+        if [ -f "$skill_file" ]; then
+            basename "$skill_file" .SKILL.md
+        fi
+    done
+}
+
+check_skill_conflicts() {
+    local duplicates
+    duplicates=$(list_installable_skill_names | sort | uniq -d)
+
+    if [ -n "$duplicates" ]; then
+        error "Duplicate skill install names found. Resolve these before installing:\n$duplicates"
+    fi
+}
+
+validate_registry() {
+    if [ ! -f "$INSTALL_DIR/scripts/validate_skills.py" ]; then
+        warn "Skill validator not found; skipping registry validation"
+        return
+    fi
+
+    if ! command -v python3 &> /dev/null; then
+        error "python3 is required for skill registry validation."
+    fi
+
+    python3 "$INSTALL_DIR/scripts/validate_skills.py" --check
+}
+
+prepare_directory_skill_target() {
+    local skill_name="$1"
+    local target="$SKILLS_DIR/$skill_name"
+
+    if [ -L "$target" ]; then
+        rm -f "$target"
+    elif [ -d "$target" ] && [ -L "$target/SKILL.md" ]; then
+        local linked_skill
+        linked_skill=$(readlink "$target/SKILL.md" 2>/dev/null || true)
+        if [[ "$linked_skill" == *"claude-arsenal"* ]]; then
+            rm -rf "$target"
+        fi
+    fi
+}
+
+prepare_file_skill_target() {
+    local skill_name="$1"
+    local target="$SKILLS_DIR/$skill_name"
+
+    if [ -L "$target" ]; then
+        rm -f "$target"
+    fi
+
+    mkdir -p "$target"
+}
+
 # Install all skills
 install_all_skills() {
     info "Installing all skills..."
@@ -81,10 +143,11 @@ install_all_skills() {
 
     # Install directory-based skills
     for skill_dir in "$INSTALL_DIR/skills"/*/; do
-        if [ -d "$skill_dir" ]; then
+        if [ -f "$skill_dir/SKILL.md" ]; then
             skill_name=$(basename "$skill_dir")
+            prepare_directory_skill_target "$skill_name"
             ln -sfn "$skill_dir" "$SKILLS_DIR/$skill_name"
-            ((count++))
+            count=$((count + 1))
         fi
     done
 
@@ -92,9 +155,9 @@ install_all_skills() {
     for skill_file in "$INSTALL_DIR/skills"/*.SKILL.md; do
         if [ -f "$skill_file" ]; then
             skill_name=$(basename "$skill_file" .SKILL.md)
-            mkdir -p "$SKILLS_DIR/$skill_name"
+            prepare_file_skill_target "$skill_name"
             ln -sfn "$skill_file" "$SKILLS_DIR/$skill_name/SKILL.md"
-            ((count++))
+            count=$((count + 1))
         fi
     done
 
@@ -113,15 +176,16 @@ install_skills() {
         skill=$(echo "$skill" | xargs) # trim whitespace
 
         # Check if directory-based skill
-        if [ -d "$INSTALL_DIR/skills/$skill" ]; then
+        if [ -f "$INSTALL_DIR/skills/$skill/SKILL.md" ]; then
+            prepare_directory_skill_target "$skill"
             ln -sfn "$INSTALL_DIR/skills/$skill" "$SKILLS_DIR/$skill"
-            ((count++))
+            count=$((count + 1))
             info "  ✓ $skill"
         # Check if file-based skill
         elif [ -f "$INSTALL_DIR/skills/$skill.SKILL.md" ]; then
-            mkdir -p "$SKILLS_DIR/$skill"
+            prepare_file_skill_target "$skill"
             ln -sfn "$INSTALL_DIR/skills/$skill.SKILL.md" "$SKILLS_DIR/$skill/SKILL.md"
-            ((count++))
+            count=$((count + 1))
             info "  ✓ $skill"
         else
             warn "  ✗ $skill (not found)"
@@ -141,7 +205,7 @@ install_agents() {
         if [ -f "$agent_file" ]; then
             agent_name=$(basename "$agent_file")
             ln -sfn "$agent_file" "$CLAUDE_DIR/agents/$agent_name"
-            ((count++))
+            count=$((count + 1))
         fi
     done
 
@@ -154,7 +218,7 @@ list_skills() {
 
     echo "Directory-based skills:"
     for skill_dir in "$INSTALL_DIR/skills"/*/; do
-        if [ -d "$skill_dir" ]; then
+        if [ -f "$skill_dir/SKILL.md" ]; then
             echo "  - $(basename "$skill_dir")"
         fi
     done
@@ -206,6 +270,7 @@ usage() {
     echo "  --skills SKILL_LIST   Install specific skills (comma-separated)"
     echo "  --agents              Install only agents"
     echo "  --list                List available skills"
+    echo "  --validate            Validate skill registry and metadata"
     echo "  --uninstall           Remove Claude Arsenal"
     echo "  --help                Show this help message"
     echo ""
@@ -224,6 +289,8 @@ main() {
         # Default: install all
         check_prerequisites
         setup_repo
+        check_skill_conflicts
+        validate_registry
         setup_directories
         install_all_skills
         install_agents
@@ -232,6 +299,8 @@ main() {
             --all)
                 check_prerequisites
                 setup_repo
+                check_skill_conflicts
+                validate_registry
                 setup_directories
                 install_all_skills
                 install_agents
@@ -242,6 +311,8 @@ main() {
                 fi
                 check_prerequisites
                 setup_repo
+                check_skill_conflicts
+                validate_registry
                 setup_directories
                 install_skills "$2"
                 ;;
@@ -253,7 +324,14 @@ main() {
                 ;;
             --list)
                 setup_repo
+                check_skill_conflicts
                 list_skills
+                exit 0
+                ;;
+            --validate)
+                setup_repo
+                check_skill_conflicts
+                validate_registry
                 exit 0
                 ;;
             --uninstall)

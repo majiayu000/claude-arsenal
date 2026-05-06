@@ -7,14 +7,15 @@ Thanks for your interest in contributing!
 ```bash
 git clone https://github.com/majiayu000/claude-arsenal.git
 cd claude-arsenal
-uv pip install -e .
-pytest
+python3 scripts/validate_skills.py --check
+bash -n install.sh
 ```
 
 ## Guidelines
 
 - Follow existing code style
 - Add tests for new features
+- Run `python3 scripts/validate_skills.py --check` before opening a PR
 - Commit messages: `<type>: <description>` (feat/fix/refactor/docs/test/chore)
 
 ## Pull Requests

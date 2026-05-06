@@ -1,8 +1,9 @@
 ---
 name: disk-cleaner
 description: 扫描磁盘空间占用，找出可安全删除的缓存、编译产物、安装包等，交互式清理释放空间
-argument-hint: [扫描路径，默认 ~]
 allowed-tools: Bash
+metadata:
+  argument-hint: "[扫描路径，默认 ~]"
 ---
 
 # 磁盘空间清理工具

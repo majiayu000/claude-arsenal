@@ -1,8 +1,9 @@
 ---
 name: system-doctor
 description: 系统性能诊断。当用户说电脑卡、系统慢、查看进程、CPU占用高、内存不够等性能问题时使用
-argument-hint: [无参数]
 allowed-tools: Bash
+metadata:
+  argument-hint: "[无参数]"
 ---
 
 # 系统性能诊断工具
